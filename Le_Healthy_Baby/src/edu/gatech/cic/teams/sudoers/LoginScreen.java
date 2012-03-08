@@ -10,4 +10,4 @@ public class LoginScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 	}
-}
+} //test
