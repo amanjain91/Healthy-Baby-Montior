@@ -1,0 +1,30 @@
+package edu.gatech.cic.teams.sudoers;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
+
+public class ChildTextView extends TextView {
+	private Child myChild;
+	private static final int mTextSize = 30;
+
+	public ChildTextView(Context context, Child aChild) {
+		super(context);
+		myChild = aChild;
+		setText(myChild.getName());
+		setOnClickListener(new MyOnClickListener(myChild));
+		setClickable(true);
+	}
+
+	private class MyOnClickListener implements OnClickListener {
+		private Child myChild;
+
+		public MyOnClickListener(Child aChild) {
+			myChild = aChild;
+		}
+
+		public void onClick(View v) {
+			
+		}
+	}
+}

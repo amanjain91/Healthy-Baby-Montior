@@ -1,0 +1,12 @@
+package edu.gatech.cic.teams.sudoers;
+
+import android.content.Context;
+import android.widget.TextView;
+
+public class ChildTextView extends TextView {
+
+	public ChildTextView(Context context) {
+		super(context);
+	}
+
+}

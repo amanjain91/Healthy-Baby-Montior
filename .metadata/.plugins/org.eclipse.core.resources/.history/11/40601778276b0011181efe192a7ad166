@@ -1,0 +1,8 @@
+package edu.gatech.cic.teams.sudoers;
+
+public class DatabaseFactory {
+	private static DatabaseOpenHelper mDatabase= new DatabaseOpenHelper(MyApplication.);
+	public static DatabaseOpenHelper getDatabaseHelper(){
+		
+	}
+}

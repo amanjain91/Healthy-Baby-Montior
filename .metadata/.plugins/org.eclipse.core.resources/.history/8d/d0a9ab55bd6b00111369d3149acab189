@@ -1,0 +1,91 @@
+package edu.gatech.cic.teams.sudoers;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class HomeScreen extends Activity implements OnClickListener {
+	/** Called when the activity is first created. */
+	private Button mAddChildButton;
+	private LinearLayout mMainLayout;
+	private Child[] allChildren;
+	private DatabaseOpenHelper mReadableWritableDatabase;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mReadableWritableDatabase = new DatabaseOpenHelper(
+				getApplicationContext());
+		mReadableWritableDatabase.onUpgrade(
+				mReadableWritableDatabase.getWritableDatabase(), 2, 3);
+		mReadableWritableDatabase.onCreate(mReadableWritableDatabase
+				.getWritableDatabase());
+		initLayout();
+		getChildren();
+		ChildTextView temp;
+		LinearLayout aHorizontalLayout;
+		for (int i = 0; i < allChildren.length; i++) {
+			aHorizontalLayout = new LinearLayout(this.getApplicationContext());
+			aHorizontalLayout.setLayoutParams(new LayoutParams(
+					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+			aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+			temp = new ChildTextView(getApplicationContext(), allChildren[i]);
+			aHorizontalLayout.addView(temp);
+			mMainLayout.addView(aHorizontalLayout);
+		}
+		setContentView(mMainLayout);
+	}
+
+	private void getChildren() {
+		if (mReadableWritableDatabase == null) {
+			Log.v("HomeScreen", "DatabaseOpenHelper instance variable is null!");
+		}
+		SQLiteDatabase db = mReadableWritableDatabase.getReadableDatabase();
+		Cursor c = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, null,
+				null, null, null, null);
+		c.moveToFirst();
+		Child tempChild;
+		allChildren = new Child[c.getCount()];
+		for (int i = 0; i < allChildren.length; i++) {
+			tempChild = new Child();
+			tempChild.setName(c.getString(c
+					.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
+			allChildren[i] = tempChild;
+			c.moveToNext();
+		}
+	}
+
+	private void initLayout() {
+		LinearLayout aHorizontalLayout = new LinearLayout(
+				this.getApplicationContext());
+		mMainLayout = new LinearLayout(getApplicationContext());
+		mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT));
+		mMainLayout.setOrientation(LinearLayout.VERTICAL);
+		aHorizontalLayout.setLayoutParams(new LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+		aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+		mAddChildButton = new Button(getApplicationContext());
+		mAddChildButton.setOnClickListener(new AButtonListener());
+		mAddChildButton.setText("Add Child");
+		aHorizontalLayout.addView(mAddChildButton);
+		mMainLayout.addView(aHorizontalLayout);
+	}
+
+	class AButtonListener {
+		public void onClick(View v) {
+			Intent i = new Intent(HomeScreen.this, NewChildActivity.class);
+			startActivity(i);
+		}
+	}
+}

@@ -5,59 +5,62 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-public class HomeScreen extends Activity {
+public class HomeScreen extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	private Button mAddChildButton;
 	private LinearLayout mMainLayout;
+	private Child[] allChildren;
+	private DatabaseOpenHelper mReadableWritableDatabase;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mReadableWritableDatabase = new DatabaseOpenHelper(
+				getApplicationContext());
+		mReadableWritableDatabase.onUpgrade(
+				mReadableWritableDatabase.getWritableDatabase(), 2, 3);
+		mReadableWritableDatabase.onCreate(mReadableWritableDatabase
+				.getWritableDatabase());
 		initLayout();
-		Child[] allChildren = getChildren();
-		TextView temp;
+		getChildren();
+		ChildTextView temp;
 		LinearLayout aHorizontalLayout;
 		for (int i = 0; i < allChildren.length; i++) {
 			aHorizontalLayout = new LinearLayout(this.getApplicationContext());
 			aHorizontalLayout.setLayoutParams(new LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 			aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-			temp = new TextView(getApplicationContext());
-			temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			temp.setText(allChildren[i].getName());
+			temp = new ChildTextView(getApplicationContext(), allChildren[i]);
 			aHorizontalLayout.addView(temp);
 			mMainLayout.addView(aHorizontalLayout);
 		}
 		setContentView(mMainLayout);
-
 	}
 
-	private Child[] getChildren() {
-		DatabaseOpenHelper dbs = DatabaseFactory.getDatabaseHelper();
-		SQLiteDatabase db = dbs.getWritableDatabase();
-		db = dbs.getWritableDatabase();
-		Cursor c = db.rawQuery("SELECT " + DatabaseOpenHelper.CHILD_ID
-				+ " as _id, " + DatabaseOpenHelper.CHILD_NAME + " FROM "
-				+ DatabaseOpenHelper.CHILDREN_TABLE_NAME, new String[] {});
-		Child[] allChildren = (Child[]) new Object[c.getCount()];
+	private void getChildren() {
+		if (mReadableWritableDatabase == null) {
+			Log.v("HomeScreen", "DatabaseOpenHelper instance variable is null!");
+		}
+		SQLiteDatabase db = mReadableWritableDatabase.getReadableDatabase();
+		Cursor c = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, null,
+				null, null, null, null);
 		c.moveToFirst();
 		Child tempChild;
+		allChildren = new Child[c.getCount()];
 		for (int i = 0; i < allChildren.length; i++) {
 			tempChild = new Child();
 			tempChild.setName(c.getString(c
 					.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
 			allChildren[i] = tempChild;
+			c.moveToNext();
 		}
-		return allChildren;
 	}
 
 	private void initLayout() {
@@ -67,22 +70,18 @@ public class HomeScreen extends Activity {
 		mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		mMainLayout.setOrientation(LinearLayout.VERTICAL);
-
 		aHorizontalLayout.setLayoutParams(new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
 		aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 		mAddChildButton = new Button(getApplicationContext());
-		mAddChildButton.setOnClickListener(new AButtonListener());
+		mAddChildButton.setOnClickListener(this);
 		mAddChildButton.setText("Add Child");
 		aHorizontalLayout.addView(mAddChildButton);
 		mMainLayout.addView(aHorizontalLayout);
 	}
 
-	class AButtonListener implements OnClickListener {
-		public void onClick(View v) {
-			Intent i = new Intent(HomeScreen.this, NewChildActivity.class);
-			startActivity(i);
-		}
+	public void onClick(View v) {
+		Intent i = new Intent(HomeScreen.this, NewChildActivity.class);
+		startActivity(i);
 	}
 }

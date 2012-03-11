@@ -1,0 +1,18 @@
+package edu.gatech.cic.teams.sudoers;
+
+import android.content.Context;
+
+public class DatabaseFactory {
+	private static DatabaseOpenHelper mDatabase;
+
+	public static DatabaseOpenHelper getDatabaseHelper() {
+		if (mDatabase == null) {
+			System.out.println("WT!");
+		}
+		return mDatabase;
+	}
+
+	public void setContext(Context c) {
+		mDatabase = new DatabaseOpenHelper(c);
+	}
+}
