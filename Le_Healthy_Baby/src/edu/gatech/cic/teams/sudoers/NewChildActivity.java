@@ -8,6 +8,6 @@ public class NewChildActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.new_child_layoutxml);
+		setContentView(R.layout.new_child_layout);
 	}
 }
