@@ -37,6 +37,8 @@ public class HomeScreen extends Activity implements OnClickListener {
 
 	public void onResume() {
 		super.onResume();
+		Log.v(getClass().getSimpleName(), "onResume() called.");
+		getChildren();
 		updateChildren();
 		mMainLayout.invalidate();
 	}
@@ -58,19 +60,21 @@ public class HomeScreen extends Activity implements OnClickListener {
 			allChildren[i] = tempChild;
 			c.moveToNext();
 		}
+		db.close();
 	}
 
 	private void initLayout() {
-		mChildrenListLayout = new LinearLayout(getApplicationContext());
-		mChildrenListLayout.setLayoutParams(new LayoutParams(
-				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-		mChildrenListLayout.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout aHorizontalLayout = new LinearLayout(
 				this.getApplicationContext());
 		mMainLayout = new LinearLayout(getApplicationContext());
 		mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		mMainLayout.setOrientation(LinearLayout.VERTICAL);
+		mChildrenListLayout = new LinearLayout(getApplicationContext());
+		mChildrenListLayout.setLayoutParams(new LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		mChildrenListLayout.setOrientation(LinearLayout.VERTICAL);
+
 		aHorizontalLayout.setLayoutParams(new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 		aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);

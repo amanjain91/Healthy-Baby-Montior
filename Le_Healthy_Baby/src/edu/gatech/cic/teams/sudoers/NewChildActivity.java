@@ -24,6 +24,7 @@ public class NewChildActivity extends Activity {
 		ContentValues values = new ContentValues();
 		values.put(DatabaseOpenHelper.CHILD_NAME, et.getText().toString());
 		db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, values);
+		db.close();
 		finish();
 	}
 }
