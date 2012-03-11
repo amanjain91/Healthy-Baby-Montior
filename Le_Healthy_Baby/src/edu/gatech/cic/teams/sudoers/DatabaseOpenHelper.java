@@ -18,10 +18,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			+ CHILDREN_TABLE_NAME + " ( " + CHILD_ID + "INTEGER PRIMARY KEY, "
 			+ CHILD_NAME + " TEXT " + " );";
 
-	// private static final String CHILDREN_TABLE_CREATE = "CREATE TABLE "
-	// + CHILDREN_TABLE_NAME + " (" + KEY_WORD + " TEXT, "
-	// + KEY_DEFINITION + " TEXT);";
-
 	DatabaseOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
