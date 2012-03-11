@@ -27,5 +27,7 @@
             android:label="@string/app_name" >
         </activity>
     </application>
+    <application android:name=".MyApplication" >
+    </application>
 
 </manifest>
