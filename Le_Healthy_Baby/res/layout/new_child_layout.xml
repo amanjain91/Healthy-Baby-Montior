@@ -14,9 +14,10 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="Name: "
-            android:textSize="30px" />
+            android:textSize="30dp" />
 
         <EditText
+            android:id="@+id/edit_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Enter name" />
@@ -35,7 +36,6 @@
             android:textSize="30px" />
 
         <EditText
-            android:id="@+id/editText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -60,13 +60,11 @@
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/radio_button_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Male" />
 
             <RadioButton
-                android:id="@+id/radio_button_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Female" />
@@ -124,13 +122,17 @@
     </LinearLayout>
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/SubmitButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="onClick"
             android:text="Submit"
             android:textSize="30px" />
     </LinearLayout>

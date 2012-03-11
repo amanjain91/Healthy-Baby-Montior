@@ -18,6 +18,7 @@ public class HomeScreen extends Activity implements OnClickListener {
 	private LinearLayout mMainLayout;
 	private Child[] allChildren;
 	private DatabaseOpenHelper mReadableWritableDatabase;
+	private LinearLayout mChildrenListLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,18 +31,14 @@ public class HomeScreen extends Activity implements OnClickListener {
 				.getWritableDatabase());
 		initLayout();
 		getChildren();
-		ChildTextView temp;
-		LinearLayout aHorizontalLayout;
-		for (int i = 0; i < allChildren.length; i++) {
-			aHorizontalLayout = new LinearLayout(this.getApplicationContext());
-			aHorizontalLayout.setLayoutParams(new LayoutParams(
-					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-			aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-			temp = new ChildTextView(getApplicationContext(), allChildren[i]);
-			aHorizontalLayout.addView(temp);
-			mMainLayout.addView(aHorizontalLayout);
-		}
+		updateChildren();
 		setContentView(mMainLayout);
+	}
+
+	public void onResume() {
+		super.onResume();
+		updateChildren();
+		mMainLayout.invalidate();
 	}
 
 	private void getChildren() {
@@ -64,6 +61,10 @@ public class HomeScreen extends Activity implements OnClickListener {
 	}
 
 	private void initLayout() {
+		mChildrenListLayout = new LinearLayout(getApplicationContext());
+		mChildrenListLayout.setLayoutParams(new LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		mChildrenListLayout.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout aHorizontalLayout = new LinearLayout(
 				this.getApplicationContext());
 		mMainLayout = new LinearLayout(getApplicationContext());
@@ -78,6 +79,15 @@ public class HomeScreen extends Activity implements OnClickListener {
 		mAddChildButton.setText("Add Child");
 		aHorizontalLayout.addView(mAddChildButton);
 		mMainLayout.addView(aHorizontalLayout);
+		mMainLayout.addView(mChildrenListLayout);
+	}
+
+	private void updateChildren() {
+		mChildrenListLayout.removeAllViews();
+		for (int i = 0; i < allChildren.length; i++) {
+			mChildrenListLayout.addView(new ChildTextView(
+					getApplicationContext(), allChildren[i]));
+		}
 	}
 
 	public void onClick(View v) {
