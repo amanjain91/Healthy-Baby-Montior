@@ -16,6 +16,10 @@ import android.widget.EditText;
  * @version 1.0
  */
 public class NewChildActivity extends Activity {
+
+	/** The KeyValueMap used at the time of submission. */
+	private ContentValues mValues;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,15 +28,16 @@ public class NewChildActivity extends Activity {
 	}
 
 	public void onClick(View v) {
-		Log.v(this.getClass().getSimpleName(), "Submit button Clicked!");
-		EditText et = (EditText) findViewById(R.id.edit_name);
 		SQLiteDatabase db = null;
+		Log.v(this.getClass().getSimpleName(), "Submit button Clicked!");
 		try {
 			db = new DatabaseOpenHelper(getApplicationContext())
 					.getWritableDatabase();
-			ContentValues values = new ContentValues();
-			values.put(DatabaseOpenHelper.CHILD_NAME, et.getText().toString());
-			db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, values);
+			mValues = new ContentValues();
+			mValues.put(DatabaseOpenHelper.CHILD_NAME,
+					((EditText) findViewById(R.id.edit_name)).getText()
+							.toString());
+			db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, mValues);
 		} finally {
 			db.close();
 		}

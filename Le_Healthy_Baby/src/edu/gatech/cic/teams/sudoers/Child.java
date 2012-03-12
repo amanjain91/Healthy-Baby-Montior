@@ -11,18 +11,21 @@ public class Child {
 	/** The name of the child */
 	private String mName;
 
-	private static final String AT_RATE_OF = "@";
-
+	/**
+	 * Initializes the object with the given name.
+	 * 
+	 * @param name
+	 *            The name of this child.
+	 */
 	public Child(String name) {
 		mName = name;
 	}
 
+	/**
+	 * Default constructor for initializing the child with no name.
+	 */
 	public Child() {
 		this("");
-	}
-
-	public void setName(String string) {
-		mName = string;
 	}
 
 	public String getName() {
@@ -30,6 +33,6 @@ public class Child {
 	}
 
 	public String toString() {
-		return getClass() + AT_RATE_OF + getName();
+		return getClass() + "@" + getName();
 	}
 }

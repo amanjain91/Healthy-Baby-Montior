@@ -71,22 +71,20 @@ public class HomeScreen extends Activity implements OnClickListener {
 	}
 
 	private void getChildren() {
+		SQLiteDatabase db = null;
+		Child tempChild;
 		if (null == mReadableWritableDatabase) {
 			Log.v("HomeScreen", "DatabaseOpenHelper instance variable is null!");
 		}
-		SQLiteDatabase db = null;
 		try {
 			db = mReadableWritableDatabase.getReadableDatabase();
 			mCursor = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null,
 					null, null, null, null, null);
 			mCursor.moveToFirst();
-			Child tempChild;
 			mAllChildren = new Child[mCursor.getCount()];
 			for (int i = 0; i < mAllChildren.length; i++) {
-				tempChild = new Child();
-				tempChild.setName(mCursor.getString(mCursor
+				mAllChildren[i] = new Child(mCursor.getString(mCursor
 						.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
-				mAllChildren[i] = tempChild;
 				mCursor.moveToNext();
 			}
 		} finally {
@@ -95,7 +93,7 @@ public class HomeScreen extends Activity implements OnClickListener {
 	}
 
 	private void initLayout() {
-		LinearLayout aHorizontalLayout = new LinearLayout(
+		final LinearLayout aHorizontalLayout = new LinearLayout(
 				getApplicationContext());
 		mMainLayout = new LinearLayout(getApplicationContext());
 		mChildrenListLayout = new LinearLayout(getApplicationContext());
@@ -129,8 +127,7 @@ public class HomeScreen extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		Intent i = new Intent(HomeScreen.this, NewChildActivity.class);
-		startActivity(i);
+		startActivity(new Intent(HomeScreen.this, NewChildActivity.class));
 	}
 
 	public String toString() {
