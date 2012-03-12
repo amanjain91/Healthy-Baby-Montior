@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 /**
@@ -32,15 +33,18 @@ public class Child {
 	/**
 	 * Getter method for the name of the child.
 	 * 
-	 * @return The name of this child.
-	 */
+	
+	 * @return The name of this child. */
 	public String getName() {
 		return mName;
 	}
 
 	/**
 	 * The String representation of this object.
-	 */
+	 * 
+	
+	 * @return The String representation of this object <br/>
+	 *         ie. (Child@It's name). */
 	public String toString() {
 		return getClass() + "@" + getName();
 	}

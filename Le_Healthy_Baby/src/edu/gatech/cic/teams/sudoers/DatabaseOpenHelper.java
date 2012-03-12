@@ -1,3 +1,5 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
+
 package edu.gatech.cic.teams.sudoers;
 
 import android.content.ContentValues;
@@ -55,7 +57,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * 
 	 * @param context
 	 */
-	DatabaseOpenHelper(Context context) {
+	protected DatabaseOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -103,6 +105,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * Just returns the class name. Implemented to adhere to the CodePro
 	 * standards.
+	 * 
 	 * 
 	 * @return The simple class name of this object.
 	 */

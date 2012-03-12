@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import android.content.Context;
@@ -60,14 +61,20 @@ public class ChildTextView extends TextView implements OnTouchListener,
 
 	/**
 	 * The String representation of this object.
+	 * 
+	 * 
+	 * @return The class name in String.
 	 */
 	public String toString() {
 		return getClass().getName();
 	}
 
 	/**
-	 * The method called on clicking this object. <br/>
+	 * The method gets called on clicking this object. <br/>
 	 * TODO: Make this go to the stream homepage.
+	 * 
+	 * @param v
+	 *            The view the was clicked.
 	 */
 	public void onClick(View v) {
 		Log.v(toString(),
@@ -77,6 +84,14 @@ public class ChildTextView extends TextView implements OnTouchListener,
 	/**
 	 * Just a test <br/>
 	 * TODO: remove this.
+	 * 
+	 * @param v
+	 *            The view the touch event has been dispatched to.
+	 * @param event
+	 *            The MotionEvent object containing full information about the
+	 *            event.
+	 * 
+	 * @return True if the listener has consumed the event, false otherwise.
 	 */
 	public boolean onTouch(View v, MotionEvent event) {
 		Log.v(toString(), "Internal OnTouchCalled!");
