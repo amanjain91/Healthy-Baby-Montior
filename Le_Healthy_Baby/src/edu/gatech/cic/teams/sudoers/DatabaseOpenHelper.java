@@ -62,12 +62,16 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * The method called on creation of this object. Creates the tables and puts
 	 * dummy data.
+	 * 
+	 * @param db
+	 *            The database object passed initially to work with.
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		ContentValues values = new ContentValues();
 		db.execSQL("DROP TABLE IF EXISTS children;");
 		db.execSQL(CREATE_CHILDREN_TABLE);
-		ContentValues values = new ContentValues();
+
 		values.put(CHILD_NAME, "Chyut");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		values = new ContentValues();
@@ -79,8 +83,15 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Moves data from original database to the newer version. TODO: Add queries
-	 * to copy data from original to new one.
+	 * Moves data from original database to the newer version.<br/>
+	 * TODO: Add queries to copy data from original to new one.
+	 * 
+	 * @param db
+	 *            The new database where data is to be copied.
+	 * @param oldVersion
+	 *            The current version of the database
+	 * @param newVersion
+	 *            The version of the db passed into this method.
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -92,6 +103,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * Just returns the class name. Implemented to adhere to the CodePro
 	 * standards.
+	 * 
+	 * @return The simple class name of this object.
 	 */
 	public String toString() {
 		return getClass().getSimpleName();

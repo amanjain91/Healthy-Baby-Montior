@@ -1,7 +1,8 @@
 package edu.gatech.cic.teams.sudoers;
 
 /**
- * A information holder object for a Child.
+ * A information holder object for a Child.<br/>
+ * TODO: Add support for more fields from the AddChildActivity.
  * 
  * @author Suren_Nihalani
  * @version 1.0
@@ -28,10 +29,18 @@ public class Child {
 		this("");
 	}
 
+	/**
+	 * Getter method for the name of the child.
+	 * 
+	 * @return The name of this child.
+	 */
 	public String getName() {
 		return mName;
 	}
 
+	/**
+	 * The String representation of this object.
+	 */
 	public String toString() {
 		return getClass() + "@" + getName();
 	}

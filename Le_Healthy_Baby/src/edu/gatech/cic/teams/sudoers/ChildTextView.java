@@ -32,6 +32,14 @@ public class ChildTextView extends TextView implements OnTouchListener,
 	 */
 	private static boolean sColor = false;
 
+	/**
+	 * The constructor method.
+	 * 
+	 * @param context
+	 *            The application context. required for super.
+	 * @param aChild
+	 *            The child represented by this object.
+	 */
 	public ChildTextView(Context context, Child aChild) {
 		super(context);
 		mChild = aChild;
@@ -50,15 +58,26 @@ public class ChildTextView extends TextView implements OnTouchListener,
 		setOnClickListener(this);
 	}
 
+	/**
+	 * The String representation of this object.
+	 */
 	public String toString() {
 		return getClass().getName();
 	}
 
+	/**
+	 * The method called on clicking this object. <br/>
+	 * TODO: Make this go to the stream homepage.
+	 */
 	public void onClick(View v) {
 		Log.v(toString(),
 				"Internal OnClick Called! for Child: " + mChild.getName());
 	}
 
+	/**
+	 * Just a test <br/>
+	 * TODO: remove this.
+	 */
 	public boolean onTouch(View v, MotionEvent event) {
 		Log.v(toString(), "Internal OnTouchCalled!");
 		return true;
