@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 /**
  * This screen lists children as TextViews and on clicking then leads to their
  * notification streams.
- * 
  * @author Suren_Nihalani
  * @version 1.0
  */
