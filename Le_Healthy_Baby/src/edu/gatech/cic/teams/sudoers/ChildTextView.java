@@ -11,19 +11,20 @@ import android.widget.TextView;
 
 public class ChildTextView extends TextView implements OnTouchListener,
 		OnClickListener {
-	private Child mChild;
-	private static final int mTextSize = 25;
+	private final Child mChild;
+	private static final int TEXT_SIZE = 25;
 	private static boolean mColor = false;
 
 	public ChildTextView(Context context, Child aChild) {
 		super(context);
 		mChild = aChild;
-		if (mColor)
+		if (mColor) {
 			setBackgroundResource(R.color.White);
-		else
+		} else {
 			setBackgroundResource(R.color.Black);
+		}
 		mColor = !mColor;
-		setTextSize(mTextSize);
+		setTextSize(TEXT_SIZE);
 		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		setText(mChild.getName());

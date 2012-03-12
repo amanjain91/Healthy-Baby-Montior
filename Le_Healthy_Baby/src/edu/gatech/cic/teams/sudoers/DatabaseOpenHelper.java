@@ -43,4 +43,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS children;");
 		onCreate(db);
 	}
+
+	public String toString() {
+		return this.getClass().getSimpleName();
+	}
 }

@@ -1,13 +1,17 @@
 package edu.gatech.cic.teams.sudoers;
 
 public class Child {
-	private String myName;
+	private String mName;
 
 	public void setName(String string) {
-		myName = string;
+		mName = string;
 	}
 
 	public String getName() {
-		return myName;
+		return mName;
+	}
+
+	public String toString() {
+		return "Child: " + mName;
 	}
 }

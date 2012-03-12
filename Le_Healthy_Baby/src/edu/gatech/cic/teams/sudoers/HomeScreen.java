@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class HomeScreen extends Activity implements OnClickListener {
-	/** Called when the activity is first created. */
 	private Button mAddChildButton;
 	private LinearLayout mMainLayout;
 	private Child[] allChildren;
@@ -44,23 +43,27 @@ public class HomeScreen extends Activity implements OnClickListener {
 	}
 
 	private void getChildren() {
-		if (mReadableWritableDatabase == null) {
+		if (null == mReadableWritableDatabase) {
 			Log.v("HomeScreen", "DatabaseOpenHelper instance variable is null!");
 		}
-		SQLiteDatabase db = mReadableWritableDatabase.getReadableDatabase();
-		Cursor c = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, null,
-				null, null, null, null);
-		c.moveToFirst();
-		Child tempChild;
-		allChildren = new Child[c.getCount()];
-		for (int i = 0; i < allChildren.length; i++) {
-			tempChild = new Child();
-			tempChild.setName(c.getString(c
-					.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
-			allChildren[i] = tempChild;
-			c.moveToNext();
+		SQLiteDatabase db = null;
+		try {
+			db = mReadableWritableDatabase.getReadableDatabase();
+			Cursor c = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null,
+					null, null, null, null, null);
+			c.moveToFirst();
+			Child tempChild;
+			allChildren = new Child[c.getCount()];
+			for (int i = 0; i < allChildren.length; i++) {
+				tempChild = new Child();
+				tempChild.setName(c.getString(c
+						.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
+				allChildren[i] = tempChild;
+				c.moveToNext();
+			}
+		} finally {
+			db.close();
 		}
-		db.close();
 	}
 
 	private void initLayout() {
@@ -97,5 +100,9 @@ public class HomeScreen extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		Intent i = new Intent(HomeScreen.this, NewChildActivity.class);
 		startActivity(i);
+	}
+
+	public String toString() {
+		return getClass().getSimpleName();
 	}
 }

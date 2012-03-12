@@ -19,12 +19,20 @@ public class NewChildActivity extends Activity {
 	public void onClick(View v) {
 		Log.v(this.getClass().getSimpleName(), "Submit button Clicked!");
 		EditText et = (EditText) findViewById(R.id.edit_name);
-		SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext())
-				.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(DatabaseOpenHelper.CHILD_NAME, et.getText().toString());
-		db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, values);
-		db.close();
+		SQLiteDatabase db = null;
+		try {
+			db = new DatabaseOpenHelper(getApplicationContext())
+					.getWritableDatabase();
+			ContentValues values = new ContentValues();
+			values.put(DatabaseOpenHelper.CHILD_NAME, et.getText().toString());
+			db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, values);
+		} finally {
+			db.close();
+		}
 		finish();
+	}
+
+	public String toString() {
+		return getClass().getSimpleName();
 	}
 }
