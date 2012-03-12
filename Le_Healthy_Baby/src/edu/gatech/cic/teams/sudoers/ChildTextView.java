@@ -4,26 +4,35 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 public class ChildTextView extends TextView implements OnTouchListener,
 		OnClickListener {
+	/**
+	 * The child object that shall be pass to the next screen on clicking this
+	 * text view
+	 */
 	private final Child mChild;
+	/** The text size of the text displayed in this view */
 	private static final int TEXT_SIZE = 25;
-	private static boolean mColor = false;
+	/**
+	 * The variable required to implement alternating colors for the textview in
+	 * the list
+	 */
+	private static boolean sColor = false;
 
 	public ChildTextView(Context context, Child aChild) {
 		super(context);
 		mChild = aChild;
-		if (mColor) {
+		if (sColor) {
 			setBackgroundResource(R.color.White);
 		} else {
 			setBackgroundResource(R.color.Black);
 		}
-		mColor = !mColor;
+		sColor = !sColor;
 		setTextSize(TEXT_SIZE);
 		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));

@@ -13,11 +13,30 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class HomeScreen extends Activity implements OnClickListener {
+
+	/** The button variable for adding a new child */
 	private Button mAddChildButton;
+
+	/** The root layout of this activity. */
 	private LinearLayout mMainLayout;
-	private Child[] allChildren;
+
+	/** The children to be drawn as a list on the screen */
+	private Child[] mAllChildren;
+
+	/** The database open helper used by everyone in this activity. */
 	private DatabaseOpenHelper mReadableWritableDatabase;
+
+	/** The layout where each ChildTextView should be added. */
 	private LinearLayout mChildrenListLayout;
+
+	/** The cursor object to be used for every query result. */
+	private Cursor mCursor;
+
+	/**
+	 * Made this LayoutParams object static so as to avoid double initialization
+	 */
+	private static final LayoutParams BOTH_FILL_PARENT = new LayoutParams(
+			LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,17 +68,17 @@ public class HomeScreen extends Activity implements OnClickListener {
 		SQLiteDatabase db = null;
 		try {
 			db = mReadableWritableDatabase.getReadableDatabase();
-			Cursor c = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null,
+			mCursor = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null,
 					null, null, null, null, null);
-			c.moveToFirst();
+			mCursor.moveToFirst();
 			Child tempChild;
-			allChildren = new Child[c.getCount()];
-			for (int i = 0; i < allChildren.length; i++) {
+			mAllChildren = new Child[mCursor.getCount()];
+			for (int i = 0; i < mAllChildren.length; i++) {
 				tempChild = new Child();
-				tempChild.setName(c.getString(c
+				tempChild.setName(mCursor.getString(mCursor
 						.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
-				allChildren[i] = tempChild;
-				c.moveToNext();
+				mAllChildren[i] = tempChild;
+				mCursor.moveToNext();
 			}
 		} finally {
 			db.close();
@@ -68,32 +87,35 @@ public class HomeScreen extends Activity implements OnClickListener {
 
 	private void initLayout() {
 		LinearLayout aHorizontalLayout = new LinearLayout(
-				this.getApplicationContext());
+				getApplicationContext());
 		mMainLayout = new LinearLayout(getApplicationContext());
-		mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
-		mMainLayout.setOrientation(LinearLayout.VERTICAL);
 		mChildrenListLayout = new LinearLayout(getApplicationContext());
-		mChildrenListLayout.setLayoutParams(new LayoutParams(
-				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+
+		mMainLayout.setLayoutParams(BOTH_FILL_PARENT);
+		mMainLayout.setOrientation(LinearLayout.VERTICAL);
+
+		mChildrenListLayout.setLayoutParams(BOTH_FILL_PARENT);
 		mChildrenListLayout.setOrientation(LinearLayout.VERTICAL);
 
 		aHorizontalLayout.setLayoutParams(new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 		aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+
 		mAddChildButton = new Button(getApplicationContext());
 		mAddChildButton.setOnClickListener(this);
 		mAddChildButton.setText("Add Child");
+
 		aHorizontalLayout.addView(mAddChildButton);
+
 		mMainLayout.addView(aHorizontalLayout);
 		mMainLayout.addView(mChildrenListLayout);
 	}
 
 	private void updateChildren() {
 		mChildrenListLayout.removeAllViews();
-		for (int i = 0; i < allChildren.length; i++) {
+		for (int i = 0; i < mAllChildren.length; i++) {
 			mChildrenListLayout.addView(new ChildTextView(
-					getApplicationContext(), allChildren[i]));
+					getApplicationContext(), mAllChildren[i]));
 		}
 	}
 
