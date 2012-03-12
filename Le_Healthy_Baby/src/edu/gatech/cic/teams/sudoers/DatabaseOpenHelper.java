@@ -12,7 +12,7 @@ import android.util.Log;
  * upgrades and provides Readable and Writable Databases.
  * 
  * @author Suren_Nihalani
- * 
+ * @version 1.0
  */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	/**

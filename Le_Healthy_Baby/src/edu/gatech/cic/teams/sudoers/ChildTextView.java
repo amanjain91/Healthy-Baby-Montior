@@ -14,6 +14,7 @@ import android.widget.TextView;
  * to the next activity and passes the child object.
  * 
  * @author Suren_Nihalani
+ * @version 1.0
  * 
  */
 public class ChildTextView extends TextView implements OnTouchListener,

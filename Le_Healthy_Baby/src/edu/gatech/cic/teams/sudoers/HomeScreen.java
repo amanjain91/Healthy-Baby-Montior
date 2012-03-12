@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
  * notification streams.
  * 
  * @author Suren_Nihalani
- * 
+ * @version 1.0
  */
 public class HomeScreen extends Activity implements OnClickListener {
 

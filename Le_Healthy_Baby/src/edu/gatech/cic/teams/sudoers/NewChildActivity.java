@@ -13,9 +13,8 @@ import android.widget.EditText;
  * application.
  * 
  * @author Suren_Nihalani
- * 
+ * @version 1.0
  */
-
 public class NewChildActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override

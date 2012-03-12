@@ -4,6 +4,7 @@ package edu.gatech.cic.teams.sudoers;
  * A information holder object for a Child.
  * 
  * @author Suren_Nihalani
+ * @version 1.0
  * 
  */
 public class Child {
