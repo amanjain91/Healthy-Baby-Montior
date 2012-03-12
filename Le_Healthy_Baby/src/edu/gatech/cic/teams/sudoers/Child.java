@@ -1,5 +1,11 @@
 package edu.gatech.cic.teams.sudoers;
 
+/**
+ * A information holder object for a Child.
+ * 
+ * @author Suren_Nihalani
+ * 
+ */
 public class Child {
 	/** The name of the child */
 	private String mName;

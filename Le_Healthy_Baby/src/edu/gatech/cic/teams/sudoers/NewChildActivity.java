@@ -8,6 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * This activity provides a form for adding a new child to be tracked in the
+ * application.
+ * 
+ * @author Suren_Nihalani
+ * 
+ */
+
 public class NewChildActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override

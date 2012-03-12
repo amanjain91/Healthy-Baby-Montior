@@ -6,6 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/***
+ * 
+ * DatabaseOpenHelper class initializes the tables, copies data on database
+ * upgrades and provides Readable and Writable Databases.
+ * 
+ * @author Suren_Nihalani
+ * 
+ */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * The current version of the database required.<br/>

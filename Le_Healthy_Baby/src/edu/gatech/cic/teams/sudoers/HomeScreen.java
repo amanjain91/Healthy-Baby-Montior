@@ -12,6 +12,13 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+/**
+ * This screen lists children as TextViews and on clicking then leads to their
+ * notification streams.
+ * 
+ * @author Suren_Nihalani
+ * 
+ */
 public class HomeScreen extends Activity implements OnClickListener {
 
 	/** The button variable for adding a new child */

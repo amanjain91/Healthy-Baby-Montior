@@ -9,6 +9,13 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+/**
+ * A TextView that just displays the name of the child and on clicking it, leads
+ * to the next activity and passes the child object.
+ * 
+ * @author Suren_Nihalani
+ * 
+ */
 public class ChildTextView extends TextView implements OnTouchListener,
 		OnClickListener {
 	/**
