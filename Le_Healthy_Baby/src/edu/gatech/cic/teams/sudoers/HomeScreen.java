@@ -72,7 +72,6 @@ public class HomeScreen extends Activity implements OnClickListener {
 
 	private void getChildren() {
 		SQLiteDatabase db = null;
-		Child tempChild;
 		if (null == mReadableWritableDatabase) {
 			Log.v("HomeScreen", "DatabaseOpenHelper instance variable is null!");
 		}
