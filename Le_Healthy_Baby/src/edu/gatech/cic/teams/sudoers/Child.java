@@ -11,6 +11,8 @@ public class Child {
 	/** The name of the child */
 	private String mName;
 
+	private static final String AT_RATE_OF = "@";
+
 	public Child(String name) {
 		mName = name;
 	}
@@ -28,6 +30,6 @@ public class Child {
 	}
 
 	public String toString() {
-		return "Child: " + mName;
+		return getClass() + AT_RATE_OF + getName();
 	}
 }

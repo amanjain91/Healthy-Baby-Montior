@@ -55,7 +55,8 @@ public class ChildTextView extends TextView implements OnTouchListener,
 	}
 
 	public void onClick(View v) {
-		Log.v(toString(), "Internal OnCCalled! for Child: " + mChild.getName());
+		Log.v(toString(),
+				"Internal OnClick Called! for Child: " + mChild.getName());
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {

@@ -19,7 +19,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * The current version of the database required.<br/>
 	 * Lower value might lead to call on upgrade.
 	 */
-	private static final int DATABASE_VERSION = 3;
+	public static final int DATABASE_VERSION = 3;
 
 	/**
 	 * The table name containing list of all children managed by the
@@ -50,10 +50,19 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			+ CHILDREN_TABLE_NAME + " ( " + CHILD_ID + "INTEGER PRIMARY KEY, "
 			+ CHILD_NAME + " TEXT " + " );";
 
+	/**
+	 * Constructor method. Gets the database object for the current context.
+	 * 
+	 * @param context
+	 */
 	DatabaseOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
+	/**
+	 * The method called on creation of this object. Creates the tables and puts
+	 * dummy data.
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("DROP TABLE IF EXISTS children;");
@@ -69,6 +78,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 	}
 
+	/**
+	 * Moves data from original database to the newer version. TODO: Add queries
+	 * to copy data from original to new one.
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.v("DatabaseOpenHelper", "Database Upgrade called!");
@@ -76,6 +89,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
+	/**
+	 * Just returns the class name. Implemented to adhere to the CodePro
+	 * standards.
+	 */
 	public String toString() {
 		return getClass().getSimpleName();
 	}

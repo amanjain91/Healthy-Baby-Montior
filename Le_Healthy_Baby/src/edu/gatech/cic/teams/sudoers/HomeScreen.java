@@ -51,7 +51,9 @@ public class HomeScreen extends Activity implements OnClickListener {
 		mReadableWritableDatabase = new DatabaseOpenHelper(
 				getApplicationContext());
 		mReadableWritableDatabase.onUpgrade(
-				mReadableWritableDatabase.getWritableDatabase(), 2, 3);
+				mReadableWritableDatabase.getWritableDatabase(),
+				DatabaseOpenHelper.DATABASE_VERSION,
+				DatabaseOpenHelper.DATABASE_VERSION);
 		mReadableWritableDatabase.onCreate(mReadableWritableDatabase
 				.getWritableDatabase());
 		initLayout();
