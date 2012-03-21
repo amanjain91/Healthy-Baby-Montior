@@ -61,8 +61,9 @@ public class NewChildActivity extends Activity {
 	 * The String representation of this activity. In this case, it's just the
 	 * class name.
 	 * 
-	
-	 * @return The class name. */
+	 * 
+	 * @return The class name.
+	 */
 	public String toString() {
 		return getClass().getSimpleName();
 	}

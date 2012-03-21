@@ -33,8 +33,9 @@ public class Child {
 	/**
 	 * Getter method for the name of the child.
 	 * 
-	
-	 * @return The name of this child. */
+	 * 
+	 * @return The name of this child.
+	 */
 	public String getName() {
 		return mName;
 	}
@@ -42,9 +43,10 @@ public class Child {
 	/**
 	 * The String representation of this object.
 	 * 
-	
+	 * 
 	 * @return The String representation of this object <br/>
-	 *         ie. (Child@It's name). */
+	 *         ie. (Child@It's name).
+	 */
 	public String toString() {
 		return getClass() + "@" + getName();
 	}
