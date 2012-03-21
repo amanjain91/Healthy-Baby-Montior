@@ -1,6 +1,5 @@
 /** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;

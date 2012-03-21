@@ -83,8 +83,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		values = new ContentValues();
 		values.put(CHILD_NAME, "Madarjaat");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
+		HealthData data = new HealthData();
+		data.initLengthData();
+		for (int i=0; i<data.lengthdata.length; i++) {
+			db.execSQL(data.lengthdata[i]);
+		}
 		
-		db.execSQL(new HealthData().lengthdata);
 		
 	}
 
@@ -115,5 +119,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 */
 	public String toString() {
 		return getClass().getSimpleName();
+	}
+	
+	public void insertLengthData(String SQL) {
+		
 	}
 }
