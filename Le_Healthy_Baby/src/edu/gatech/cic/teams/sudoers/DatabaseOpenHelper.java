@@ -22,6 +22,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * Lower value might lead to call on upgrade.
 	 */
 	public static final int DATABASE_VERSION = 3;
+	
 
 	/**
 	 * The table name containing list of all children managed by the
@@ -82,6 +83,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		values = new ContentValues();
 		values.put(CHILD_NAME, "Madarjaat");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
+		
 	}
 
 	/**
