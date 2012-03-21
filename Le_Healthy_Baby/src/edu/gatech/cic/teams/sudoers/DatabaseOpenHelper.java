@@ -84,6 +84,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		values.put(CHILD_NAME, "Madarjaat");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		
+		db.execSQL(new HealthData().lengthdata);
+		
 	}
 
 	/**
