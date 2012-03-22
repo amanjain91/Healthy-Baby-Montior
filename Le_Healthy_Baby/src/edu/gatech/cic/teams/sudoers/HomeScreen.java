@@ -1,5 +1,6 @@
 /** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 /**
  * This screen lists children as TextViews and on clicking then leads to their
  * notification streams.
+ * 
  * @author Suren_Nihalani
  * @version 1.0
  */
@@ -84,9 +86,6 @@ public class HomeScreen extends Activity implements OnClickListener {
 	 */
 	private void getChildren() {
 		SQLiteDatabase db = null;
-		if (null == mReadableWritableDatabase) {
-			Log.v("HomeScreen", "DatabaseOpenHelper instance variable is null!");
-		}
 		try {
 			db = mReadableWritableDatabase.getReadableDatabase();
 			mCursor = db.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null,
@@ -98,8 +97,10 @@ public class HomeScreen extends Activity implements OnClickListener {
 						.getColumnIndex(DatabaseOpenHelper.CHILD_NAME)));
 				mCursor.moveToNext();
 			}
-		} finally {
 			db.close();
+		} finally {
+			if (db.isOpen())
+				db.close();
 		}
 	}
 
@@ -159,8 +160,9 @@ public class HomeScreen extends Activity implements OnClickListener {
 	 * Returns a string containing a concise, human-readable description of this
 	 * object which in this case is the class name.
 	 * 
-	
-	 * @return The class name. */
+	 * 
+	 * @return The class name.
+	 */
 	public String toString() {
 		return getClass().getSimpleName();
 	}

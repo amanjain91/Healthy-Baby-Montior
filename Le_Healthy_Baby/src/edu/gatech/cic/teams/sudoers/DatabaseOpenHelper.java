@@ -22,7 +22,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * Lower value might lead to call on upgrade.
 	 */
 	public static final int DATABASE_VERSION = 3;
-	
 
 	/**
 	 * The table name containing list of all children managed by the
@@ -85,11 +84,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		HealthData data = new HealthData();
 		data.initLengthData();
-		for (int i=0; i<data.lengthdata.length; i++) {
+		for (int i = 0; i < data.lengthdata.length; i++) {
 			db.execSQL(data.lengthdata[i]);
 		}
-		
-		
+
 	}
 
 	/**
@@ -120,8 +118,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public String toString() {
 		return getClass().getSimpleName();
 	}
-	
+
 	public void insertLengthData(String SQL) {
-		
+
 	}
 }
