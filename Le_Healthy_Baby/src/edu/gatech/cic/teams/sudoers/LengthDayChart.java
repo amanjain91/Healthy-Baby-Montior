@@ -48,33 +48,45 @@ public class LengthDayChart extends AbstractDemoChart {
 		List<double[]> values = new ArrayList<double[]>();
 		SQLiteDatabase db = new DatabaseOpenHelper(context)
 				.getReadableDatabase();
-		c = db.query("lengthchart", new String[] { "Day", "P99" }, null, null,
-				null, null, null);
+		c = db.query("lengthchart",
+				new String[] { "Day", "P99", "P01", "P50" }, null, null, null,
+				null, null);
 
-		String[] titles = new String[] { "P99" };
-		double[] p99 = new double[c.getCount()];
-		double[] days = new double[c.getCount()];
+		String[] titles = new String[] { "P99", "P0", "P50" };
+		double[] p99 = new double[(c.getCount() / 5) + 1];
+		double[] p0 = new double[(c.getCount() / 5) + 1];
+		double[] p50 = new double[(c.getCount() / 5) + 1];
+		double[] days = new double[(c.getCount() / 5) + 1];
 		c.moveToFirst();
 		int i = 0;
 		while (c.moveToNext()) {
-			p99[i] = c.getDouble(1);
-			days[i] = i;
+			if (i % 5 == 0) {
+				p99[i / 5] = c.getDouble(1);
+				p0[i / 5] = c.getDouble(2);
+				p50[i / 5] = c.getDouble(3);
+				days[i / 5] = i;
+			}
 			i++;
 		}
-
-		x.add(new double[] { 22.0 });
-		values.add(new double[] { 34.0 });
-		int[] colors = new int[] { Color.CYAN };
-		PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE,
-				PointStyle.DIAMOND, PointStyle.TRIANGLE, PointStyle.SQUARE };
+		for (int v = 0; v < titles.length; v++) {
+			x.add(days);
+		}
+		values.add(p99);
+		values.add(p0);
+		values.add(p50);
+		// x.add(new double[] { 22.0 });
+		// values.add(new double[] { 34.0 });
+		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED };
+		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
+				PointStyle.POINT, PointStyle.POINT };
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 		int length = renderer.getSeriesRendererCount();
 		for (i = 0; i < length; i++) {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i))
 					.setFillPoints(true);
 		}
-		setChartSettings(renderer, "Height Day Chart", "Days", "Height", 0,
-				1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
+		setChartSettings(renderer, "Height Day Chart", "Days",
+				"Height (in cms)", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
 		renderer.setShowGrid(true);
