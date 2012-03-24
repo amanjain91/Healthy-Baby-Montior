@@ -33,7 +33,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 * The column name in CHILDREN_TABLE_NAME for uniquely identifying the
 	 * child.
 	 */
-	public static final String CHILD_ID = "child_id";
+	public static final String CHILD_ID = " child_id ";
 
 	/** The column name in CHILDREN_TABLE_NAME for the name of the child. */
 	public static final String CHILD_NAME = "name";
@@ -49,7 +49,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
 	/** the query to create the table initially. */
 	private static final String CREATE_CHILDREN_TABLE = "CREATE TABLE "
-			+ CHILDREN_TABLE_NAME + " ( " + CHILD_ID + "INTEGER PRIMARY KEY, "
+			+ CHILDREN_TABLE_NAME + " ( " + CHILD_ID + " INTEGER PRIMARY KEY, "
 			+ CHILD_NAME + " TEXT " + " );";
 
 	/**
