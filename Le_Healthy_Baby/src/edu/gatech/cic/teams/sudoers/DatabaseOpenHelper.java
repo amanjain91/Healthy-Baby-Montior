@@ -120,6 +120,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	}
 
 	public void insertLengthData(String SQL) {
-
+		
 	}
 }

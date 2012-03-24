@@ -4,34 +4,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 public class LengthChartData {
 	/**
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 * 
 	 */
 	SQLiteDatabase db;
 	String filename, tablename;
 	String SQL;
-	public LengthChartData(String tablename, String filename) throws FileNotFoundException {
+
+	public LengthChartData(String tablename, String filename)
+			throws FileNotFoundException {
 		this.filename = filename;
 		this.tablename = tablename;
 		SQL = "";
 	}
-	
+
 	public void extract() throws FileNotFoundException {
-		Scanner sc = new Scanner(new File(filename));	
+		Scanner sc = new Scanner(new File(filename));
 		String line;
-		line = sc.nextLine();	//first line is useless since it mentions column names
-		for (int i=0; sc.hasNext(); i++) {
+		line = sc.nextLine(); // first line is useless since it mentions column
+								// names
+		while (sc.hasNext()) {
 			line = sc.nextLine();
 			insert(line);
 		}
-		
 	}
-	
+
 	public void insert(String line) {
 		Scanner sc = new Scanner(line);
 		Integer day, L;
@@ -55,53 +56,26 @@ public class LengthChartData {
 		P97 = sc.nextDouble();
 		P99 = sc.nextDouble();
 		P999 = sc.nextDouble();
-		String query = "INSERT INTO " + tablename + "VALUES " +  "(" + day + ", "
-																	+	L + ", "
-																	+	M + ", "
-																	+	S + ", "
-																	+	P01 + ", "
-																	+	P1 + ", "
-																	+	P3 + ", "
-																	+	P5 + ", "
-																	+	P10 + ", "
-																	+	P15 + ", "
-																	+	P25 + ", "
-																	+	P50 + ", "
-																	+	P75 + ", "
-																	+	P85 + ", "
-																	+	P90 + ", "
-																	+	P95 + ", "
-																	+	P97 + ", "
-																	+	P99 + ", "
-																	+	P999 + ");";
+		String query = "INSERT INTO " + tablename + "VALUES " + "(" + day
+				+ ", " + L + ", " + M + ", " + S + ", " + P01 + ", " + P1
+				+ ", " + P3 + ", " + P5 + ", " + P10 + ", " + P15 + ", " + P25
+				+ ", " + P50 + ", " + P75 + ", " + P85 + ", " + P90 + ", "
+				+ P95 + ", " + P97 + ", " + P99 + ", " + P999 + ");";
 		SQL = SQL + query;
-																		
+
 	}
-	
+
 	public String updatedb(SQLiteDatabase db) throws FileNotFoundException {
-		SQL = "DROP TABLE IF EXISTS " + tablename +";";
-		String query = "CREATE TABLE " + tablename + " ( Day INTEGER PRIMARY KEY, "+
-														"L Integer" +
-														"M Double" +
-														"S Double" +
-														"P01 Double" +
-														"P1 Double" +
-														"P3 Double" +
-														"P5 Double" +
-														"P10 Double" +
-														"P15 Double" +
-														"P25 Double" +
-														"P50 Double" +
-														"P75 Double" +
-														"P85 Double" +
-														"P90 Double" +
-														"P95 Double" +
-														"P97 Double" +
-														"P99 Double" +
-														"P999 Double );";
+		SQL = "DROP TABLE IF EXISTS " + tablename + ";";
+		String query = "CREATE TABLE " + tablename
+				+ " ( Day INTEGER PRIMARY KEY, " + "L Integer" + "M Double"
+				+ "S Double" + "P01 Double" + "P1 Double" + "P3 Double"
+				+ "P5 Double" + "P10 Double" + "P15 Double" + "P25 Double"
+				+ "P50 Double" + "P75 Double" + "P85 Double" + "P90 Double"
+				+ "P95 Double" + "P97 Double" + "P99 Double" + "P999 Double );";
 		SQL = SQL + query;
 		return SQL;
-		
+
 	}
-	
+
 }
