@@ -57,7 +57,14 @@ public class NewChildActivity extends Activity {
 			String mTableName = "data_" + mChildID;
 			db.execSQL("DROP TABLE IF EXISTS " + mTableName + ";");
 			db.execSQL("CREATE TABLE " + mTableName + " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);");
-			
+			ContentValues values = new ContentValues();
+			for (int i=0; i<10; i++) {
+				values.put("Day", i*3);
+				values.put("Height", 45 + Math.pow(-1, i)*i*3);
+				values.put("Weight", 1);
+				values.put("BMI", 1);
+				db.insert(mTableName, null, values);
+			}
 		} finally {
 			db.close();
 		}
