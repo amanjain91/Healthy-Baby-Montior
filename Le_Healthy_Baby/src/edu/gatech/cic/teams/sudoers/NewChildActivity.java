@@ -3,6 +3,7 @@ package edu.gatech.cic.teams.sudoers;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +51,13 @@ public class NewChildActivity extends Activity {
 			mValues.put(DatabaseOpenHelper.CHILD_NAME,
 					((EditText) findViewById(R.id.edit_name)).getText()
 							.toString());
-			db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, mValues);
+			//creating table to store data for the new child. table name: data_<row_id>
+			int mID = (int) db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, mValues);
+			String mChildID = Integer.toString(mID);
+			String mTableName = "data_" + mChildID;
+			db.execSQL("DROP TABLE IF EXISTS " + mTableName + ";");
+			db.execSQL("CREATE TABLE " + mTableName + " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);");
+			
 		} finally {
 			db.close();
 		}
