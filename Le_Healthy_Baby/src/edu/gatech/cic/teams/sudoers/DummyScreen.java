@@ -23,7 +23,7 @@ public class DummyScreen extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		startActivity(new LengthDayChart()
-				.execute(this.getApplicationContext()));
+		startActivity(new HeightDayChart().execute(getApplicationContext(),
+				new Child(1, getApplicationContext())));
 	}
 }

@@ -200,7 +200,8 @@ public abstract class AbstractDemoChart {
 		MultipleCategorySeries series = new MultipleCategorySeries(title);
 		int k = 0;
 		for (double[] value : values) {
-			series.add(2007 + k + "", titles.get(k), value);
+			series.add(Integer.toString(2007) + Integer.toString(k) + "",
+					titles.get(k), value);
 			k++;
 		}
 		return series;

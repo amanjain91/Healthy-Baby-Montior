@@ -1,6 +1,10 @@
 /** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * A information holder object for a Child.<br/>
  * TODO: Add support for more fields from the AddChildActivity.
@@ -13,15 +17,25 @@ public class Child {
 	/** The name of the child */
 	private String mName;
 	private int childId;
+	private SQLiteDatabase myDb;
 
 	/**
 	 * Initializes the object with the given name.
 	 * 
-	 * @param name
-	 *            The name of this child.
+	 * @param id
+	 *            The index of this child in the all children table.
 	 */
-	public Child(int id) {
+	public Child(int id, Context c) {
 		childId = id;
+		myDb = new DatabaseOpenHelper(c).getReadableDatabase();
+		Cursor mC = myDb.query(DatabaseOpenHelper.CHILDREN_TABLE_NAME,
+				new String[] { DatabaseOpenHelper.CHILD_NAME }, " "
+						+ DatabaseOpenHelper.CHILD_ID + " =?",
+				new String[] { Integer.toString(childId) }, null, null, null);
+		mC.moveToFirst();
+		mName = mC.getString(0);
+		mC.close();
+		myDb.close();
 	}
 
 	/**
@@ -47,5 +61,18 @@ public class Child {
 	 */
 	public String toString() {
 		return getClass() + "@" + getName();
+	}
+
+	public String getDataTableName() {
+		return "data_" + Integer.toString(childId);
+	}
+
+	/**
+	 * FIXME: aman
+	 * 
+	 * @param id
+	 */
+	public static void initializeDummyData(int id) {
+
 	}
 }

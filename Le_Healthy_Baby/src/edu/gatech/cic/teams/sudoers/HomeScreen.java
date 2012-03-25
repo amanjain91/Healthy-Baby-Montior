@@ -93,7 +93,7 @@ public class HomeScreen extends Activity implements OnClickListener {
 			mCursor.moveToFirst();
 			mAllChildren = new Child[mCursor.getCount()];
 			for (int i = 0; i < mAllChildren.length; i++) {
-				mAllChildren[i] = new Child(i);
+				mAllChildren[i] = new Child(i + 1, getApplicationContext());
 				mCursor.moveToNext();
 			}
 			db.close();

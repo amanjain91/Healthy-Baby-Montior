@@ -33,7 +33,7 @@ import android.graphics.Paint.Align;
 /**
  * Average temperature demo chart.
  */
-public class LengthDayChart extends AbstractDemoChart {
+public class HeightDayChart extends AbstractDemoChart {
 	/**
 	 * Executes the chart demo.
 	 * 
@@ -41,7 +41,7 @@ public class LengthDayChart extends AbstractDemoChart {
 	 *            the context
 	 * @return the built intent
 	 */
-	public Intent execute(Context context) {
+	public Intent execute(Context context, Child aChild) {
 		Cursor c;
 		List<double[]> x = new ArrayList<double[]>();
 		List<double[]> values = new ArrayList<double[]>();
@@ -58,15 +58,29 @@ public class LengthDayChart extends AbstractDemoChart {
 		double[] days = new double[(c.getCount() / 5) + 1];
 		c.moveToFirst();
 		int i = 0;
-		while (c.moveToNext()) {
+		int temp;
+		do {
 			if (i % 5 == 0) {
-				p99[i / 5] = c.getDouble(1);
-				p0[i / 5] = c.getDouble(2);
-				p50[i / 5] = c.getDouble(3);
-				days[i / 5] = i;
+				temp = i / 5;
+				p99[temp] = c.getDouble(1);
+				p0[temp] = c.getDouble(2);
+				p50[temp] = c.getDouble(3);
+				days[temp] = i;
 			}
 			i++;
-		}
+		} while (c.moveToNext());
+		c.close();
+		c = db.query(aChild.getDataTableName(), new String[] { "Height" },
+				null, null, null, null, null);
+		c.moveToFirst();
+		double[] heightData = new double[(c.getCount() / 5) + 1];
+		i = 0;
+		do {
+			if (i % 5 == 0) {
+				heightData[i / 5] = c.getDouble(0);
+			}
+			i++;
+		} while (c.moveToNext());
 		for (int v = 0; v < titles.length; v++) {
 			x.add(days);
 		}
