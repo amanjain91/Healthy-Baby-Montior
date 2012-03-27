@@ -20,3 +20,6 @@ local.properties
 
 #Add other folders that you don't want in your directory here.
 AndStatus/
+!Le_Healthy_Baby/
+!README.md
+!.gitignore
