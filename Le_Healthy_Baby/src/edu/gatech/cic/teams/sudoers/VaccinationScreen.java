@@ -1,7 +1,9 @@
 package edu.gatech.cic.teams.sudoers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,15 +16,15 @@ public class VaccinationScreen extends Activity {
 	private int mm, yy;
 	private static String[][] chart = VaccinationData.getChart();
 	private static ArrayList<String> vList;
-	
-	public VaccinationScreen(Child current){
-		mm = current.getBirthMonth();
-		yy = current.getBirthYear();
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent i = getIntent();
+		mm = i.getIntExtra("mm", 1);
+		yy = i.getIntExtra("yy", 2012);
+		Log.v(getClass().getSimpleName(), "mm: " + mm);
+		Log.v(getClass().getSimpleName(), "yy: " + yy);
 		vList = new ArrayList<String>();
 		initLayout();
 		makeVaccineList();
@@ -40,8 +42,8 @@ public class VaccinationScreen extends Activity {
 	public void makeVaccineList() {
 		mMainLayout.removeAllViews();
 		TextView temp;
-		//mm = 1;
-		//yy = 2011;
+		// mm = 1;
+		// yy = 2011;
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH) + 1;
 		int year = cal.get(Calendar.YEAR);
@@ -110,11 +112,12 @@ public class VaccinationScreen extends Activity {
 		}
 
 		for (int i = 0; i < vList.size(); i++) {
-//			temp = new TextView(getApplicationContext());
-//			temp.setText(vList.get(i));
-//			temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-//					LayoutParams.WRAP_CONTENT));
-			mMainLayout.addView(new VaccinationView(getApplicationContext(),i,vList.get(i),false));
+			// temp = new TextView(getApplicationContext());
+			// temp.setText(vList.get(i));
+			// temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+			// LayoutParams.WRAP_CONTENT));
+			mMainLayout.addView(new VaccinationView(getApplicationContext(), i,
+					vList.get(i), false));
 		}
 
 	}

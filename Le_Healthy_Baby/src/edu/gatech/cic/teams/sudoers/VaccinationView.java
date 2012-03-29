@@ -27,8 +27,9 @@ public class VaccinationView extends LinearLayout {
 		textView = new TextView(context);
 		textView.setText(vaccineName);
 		
-		addView(textView);
 		addView(vaccineCheckBox);
+		addView(textView);
+		
 		
 	}
 }
