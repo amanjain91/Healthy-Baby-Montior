@@ -54,22 +54,9 @@ public class NewChildActivity extends Activity {
 			// data_<row_id>
 			int mID = (int) db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME,
 					null, mValues);
-			String mChildID = Integer.toString(mID);
 			// TODO put the following code in Child.initializeDummyData(id)
 			// so that we can connect things in Database open helper.
-			String mTableName = "data_" + mChildID;
-			db.execSQL("DROP TABLE IF EXISTS " + mTableName + ";");
-			db.execSQL("CREATE TABLE "
-					+ mTableName
-					+ " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);");
-			ContentValues values = new ContentValues();
-			for (int i = 0; i < 10; i++) {
-				values.put("Day", i * 3);
-				values.put("Height", 45 + Math.pow(-1, i) * i * 3);
-				values.put("Weight", 1);
-				values.put("BMI", 1);
-				db.insert(mTableName, null, values);
-			}
+			Child.initializeDummyData(mID, this.getApplicationContext());
 		} finally {
 			db.close();
 		}
