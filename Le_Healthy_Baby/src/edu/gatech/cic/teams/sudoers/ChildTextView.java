@@ -1,29 +1,56 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+/**
+ * A TextView that just displays the name of the child and on clicking it, leads
+ * to the next activity and passes the child object.
+ * 
+ * @author Suren_Nihalani
+ * @version 1.0
+ * 
+ */
 public class ChildTextView extends TextView implements OnTouchListener,
 		OnClickListener {
-	private Child mChild;
-	private static final int mTextSize = 25;
-	private static boolean mColor = false;
+	/**
+	 * The child object that shall be pass to the next screen on clicking this
+	 * text view
+	 */
+	private final Child mChild;
+	/** The text size of the text displayed in this view */
+	private static final int TEXT_SIZE = 25;
+	/**
+	 * The variable required to implement alternating colors for the textview in
+	 * the list
+	 */
+	private static boolean sColor = false;
 
+	/**
+	 * The constructor method.
+	 * 
+	 * @param context
+	 *            The application context. required for super.
+	 * @param aChild
+	 *            The child represented by this object.
+	 */
 	public ChildTextView(Context context, Child aChild) {
 		super(context);
 		mChild = aChild;
-		if (mColor)
+		if (sColor) {
 			setBackgroundResource(R.color.White);
-		else
+		} else {
 			setBackgroundResource(R.color.Black);
-		mColor = !mColor;
-		setTextSize(mTextSize);
+		}
+		sColor = !sColor;
+		setTextSize(TEXT_SIZE);
 		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		setText(mChild.getName());
@@ -32,14 +59,40 @@ public class ChildTextView extends TextView implements OnTouchListener,
 		setOnClickListener(this);
 	}
 
+	/**
+	 * The String representation of this object.
+	 * 
+	 * 
+	 * @return The class name in String.
+	 */
 	public String toString() {
 		return getClass().getName();
 	}
 
+	/**
+	 * The method gets called on clicking this object. <br/>
+	 * TODO: Make this go to the stream homepage.
+	 * 
+	 * @param v
+	 *            The view the was clicked.
+	 */
 	public void onClick(View v) {
-		Log.v(toString(), "Internal OnCCalled! for Child: " + mChild.getName());
+		Log.v(toString(),
+				"Internal OnClick Called! for Child: " + mChild.getName());
 	}
 
+	/**
+	 * Just a test <br/>
+	 * TODO: remove this.
+	 * 
+	 * @param v
+	 *            The view the touch event has been dispatched to.
+	 * @param event
+	 *            The MotionEvent object containing full information about the
+	 *            event.
+	 * 
+	 * @return True if the listener has consumed the event, false otherwise.
+	 */
 	public boolean onTouch(View v, MotionEvent event) {
 		Log.v(toString(), "Internal OnTouchCalled!");
 		return true;

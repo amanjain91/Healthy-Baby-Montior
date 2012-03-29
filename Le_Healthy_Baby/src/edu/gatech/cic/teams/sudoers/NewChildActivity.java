@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import android.app.Activity;
@@ -8,22 +9,68 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * This activity provides a form for adding a new child to be tracked in the
+ * application.
+ * 
+ * @author Suren_Nihalani
+ * @version 1.0
+ */
 public class NewChildActivity extends Activity {
-	/** Called when the activity is first created. */
+
+	/** The KeyValueMap used at the time of submission. */
+	private ContentValues mValues;
+
+	/**
+	 * Called when the activity is first created.
+	 * 
+	 * @param savedInstanceState
+	 *            The saved bundle data from the last existence.
+	 * */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_child_layout);
 	}
 
+	/**
+	 * The method called when the submit button defined in new_child_layout.xml
+	 * is clicked.
+	 * 
+	 * @param v
+	 *            The view object that was clicked.
+	 */
 	public void onClick(View v) {
+		SQLiteDatabase db = null;
 		Log.v(this.getClass().getSimpleName(), "Submit button Clicked!");
-		EditText et = (EditText) findViewById(R.id.edit_name);
-		SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext())
-				.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(DatabaseOpenHelper.CHILD_NAME, et.getText().toString());
-		db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, values);
+		try {
+			db = new DatabaseOpenHelper(getApplicationContext())
+					.getWritableDatabase();
+			mValues = new ContentValues();
+			mValues.put(DatabaseOpenHelper.CHILD_NAME,
+					((EditText) findViewById(R.id.edit_name)).getText()
+							.toString());
+			// creating table to store data for the new child. table name:
+			// data_<row_id>
+			int mID = (int) db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME,
+					null, mValues);
+			// TODO put the following code in Child.initializeDummyData(id)
+			// so that we can connect things in Database open helper.
+			Child.initializeDummyData(mID, this.getApplicationContext());
+		} finally {
+			db.close();
+		}
 		finish();
+	}
+
+	/**
+	 * The String representation of this activity. In this case, it's just the
+	 * class name.
+	 * 
+	 * 
+	 * @return The class name.
+	 */
+	public String toString() {
+		return getClass().getSimpleName();
 	}
 }
