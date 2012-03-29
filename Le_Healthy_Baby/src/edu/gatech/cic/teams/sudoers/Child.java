@@ -1,6 +1,7 @@
 /** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -72,7 +73,21 @@ public class Child {
 	 * 
 	 * @param id
 	 */
-	public static void initializeDummyData(int id) {
-
+	public static void initializeDummyData(int id, Context c) {
+		SQLiteDatabase myDb = new DatabaseOpenHelper(c).getWritableDatabase();
+		String mTableName = "data_" + id;
+		myDb.execSQL("DROP TABLE IF EXISTS " + mTableName + ";");
+		myDb.execSQL("CREATE TABLE "
+				+ mTableName
+				+ " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);");
+		ContentValues values = new ContentValues();
+		for (int i = 0; i < 10; i++) {
+			values.put("Day", i * 3);
+			values.put("Height", 45 + Math.pow(-1, i) * i * 3);
+			values.put("Weight", 1);
+			values.put("BMI", 1);
+			myDb.insert(mTableName, null, values);
+		}
+		myDb.close();
 	}
 }
