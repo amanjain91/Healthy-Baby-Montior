@@ -42,6 +42,8 @@ public class HeightDayChart extends AbstractDemoChart {
 	 * @return the built intent
 	 */
 	public Intent execute(Context context, Child aChild) {
+		// FIXME
+		Child.initializeDummyData(aChild.getChildId(), context);
 		Cursor c;
 		List<double[]> x = new ArrayList<double[]>();
 		List<double[]> values = new ArrayList<double[]>();
@@ -50,18 +52,19 @@ public class HeightDayChart extends AbstractDemoChart {
 		c = db.query("lengthchart",
 				new String[] { "Day", "P99", "P01", "P50" }, null, null, null,
 				null, null);
-
-		String[] titles = new String[] { "P99", "P0", "P50" };
-		double[] p99 = new double[(c.getCount() / 5) + 1];
-		double[] p0 = new double[(c.getCount() / 5) + 1];
-		double[] p50 = new double[(c.getCount() / 5) + 1];
-		double[] days = new double[(c.getCount() / 5) + 1];
+		int factor = 5;
+		String[] titles = new String[] { "P99", "P0", "P50", "Height" };
+		double[] p99 = new double[(c.getCount() / factor) + 1];
+		double[] p0 = new double[(c.getCount() / factor) + 1];
+		double[] p50 = new double[(c.getCount() / factor) + 1];
+		double[] days = new double[(c.getCount() / factor) + 1];
+		double[] heightData = new double[c.getCount() / factor + 1];
 		c.moveToFirst();
 		int i = 0;
 		int temp;
 		do {
-			if (i % 5 == 0) {
-				temp = i / 5;
+			if (i % factor == 0) {
+				temp = i / factor;
 				p99[temp] = c.getDouble(1);
 				p0[temp] = c.getDouble(2);
 				p50[temp] = c.getDouble(3);
@@ -70,29 +73,36 @@ public class HeightDayChart extends AbstractDemoChart {
 			i++;
 		} while (c.moveToNext());
 		c.close();
-		c = db.query(aChild.getDataTableName(), new String[] { "Height" },
-				null, null, null, null, null);
+
+		//initializing height to -5
+		for (i=0; i<heightData.length; i++) {
+			heightData[i] = -5;
+		}
+		c = db.query(aChild.getDataTableName(),
+				new String[] { "Day", "Height" }, null, null, null, null, null);
 		c.moveToFirst();
-		double[] heightData = new double[(c.getCount() / 5) + 1];
 		i = 0;
+		// retreiving height data. approximating day to the nearest factor*x
 		do {
-			if (i % 5 == 0) {
-				heightData[i / 5] = c.getDouble(0);
-			}
+			temp = (int) (c.getDouble(0)/ factor);
+			heightData[temp] = c.getDouble(1);
 			i++;
 		} while (c.moveToNext());
+
 		for (int v = 0; v < titles.length; v++) {
 			x.add(days);
 		}
 		values.add(p99);
 		values.add(p0);
 		values.add(p50);
-		// x.add(new double[] { 22.0 });
-		// values.add(new double[] { 34.0 });
-		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED };
+		values.add(heightData);
+
+		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
+				Color.BLUE };
 		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
-				PointStyle.POINT, PointStyle.POINT };
+				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
+
 		int length = renderer.getSeriesRendererCount();
 		for (i = 0; i < length; i++) {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i))
