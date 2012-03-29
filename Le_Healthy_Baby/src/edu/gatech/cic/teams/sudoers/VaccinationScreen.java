@@ -14,6 +14,11 @@ public class VaccinationScreen extends Activity {
 	private int mm, yy;
 	private static String[][] chart = VaccinationData.getChart();
 	private static ArrayList<String> vList;
+	
+	public VaccinationScreen(Child current){
+		mm = current.getBirthMonth();
+		yy = current.getBirthYear();
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,8 @@ public class VaccinationScreen extends Activity {
 	public void makeVaccineList() {
 		mMainLayout.removeAllViews();
 		TextView temp;
-		mm = 1;
-		yy = 2011;
+		//mm = 1;
+		//yy = 2011;
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH) + 1;
 		int year = cal.get(Calendar.YEAR);
@@ -105,11 +110,11 @@ public class VaccinationScreen extends Activity {
 		}
 
 		for (int i = 0; i < vList.size(); i++) {
-			temp = new TextView(getApplicationContext());
-			temp.setText(vList.get(i));
-			temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			mMainLayout.addView(temp);
+//			temp = new TextView(getApplicationContext());
+//			temp.setText(vList.get(i));
+//			temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+//					LayoutParams.WRAP_CONTENT));
+			mMainLayout.addView(new VaccinationView(getApplicationContext(),i,vList.get(i),false));
 		}
 
 	}
