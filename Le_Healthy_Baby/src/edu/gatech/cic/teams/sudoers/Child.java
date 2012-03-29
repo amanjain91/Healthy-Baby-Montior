@@ -19,6 +19,8 @@ public class Child {
 	private String mName;
 	private int childId;
 	private SQLiteDatabase myDb;
+	private int mBirthMonth;
+	private int mBirthYear;
 
 	/**
 	 * Initializes the object with the given name.
@@ -35,6 +37,9 @@ public class Child {
 				new String[] { Integer.toString(childId) }, null, null, null);
 		mC.moveToFirst();
 		mName = mC.getString(0);
+		// FIXME Suren.
+		mBirthMonth = 3;
+		mBirthYear = 2012;
 		mC.close();
 		myDb.close();
 	}
@@ -69,7 +74,7 @@ public class Child {
 	}
 
 	/**
-	 * FIXME: aman
+	 * 
 	 * 
 	 * @param id
 	 */
@@ -90,4 +95,13 @@ public class Child {
 		}
 		myDb.close();
 	}
+
+	public int getBirthMonth() {
+		return mBirthMonth;
+	}
+
+	public int getBirthYear() {
+		return mBirthYear;
+	}
+
 }
