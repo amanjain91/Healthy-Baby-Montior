@@ -120,7 +120,7 @@ public class VaccinationScreen extends Activity {
 			// temp.setText(vList.get(i));
 			// temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 			// LayoutParams.WRAP_CONTENT));
-			mMainLayout.addView(new VaccinationView(getApplicationContext(), i,
+			mMainLayout.addView(new VaccinationView(getApplicationContext(), childId,
 					vList.get(i), false));
 		}
 
