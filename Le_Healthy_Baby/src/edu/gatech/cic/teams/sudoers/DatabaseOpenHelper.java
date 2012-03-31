@@ -74,13 +74,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS children;");
 		db.execSQL(CREATE_CHILDREN_TABLE);
 
-		values.put(CHILD_NAME, "Chyut");
+		values.put(CHILD_NAME, "Suren Nihalani");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		values = new ContentValues();
-		values.put(CHILD_NAME, "Harami");
+		values.put(CHILD_NAME, "Aman");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		values = new ContentValues();
-		values.put(CHILD_NAME, "Madarjaat");
+		values.put(CHILD_NAME, "Gurden");
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		HealthData data = new HealthData();
 		data.initLengthData();
@@ -120,6 +120,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	}
 
 	public void insertLengthData(String SQL) {
-		
+
 	}
 }

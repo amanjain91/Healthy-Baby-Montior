@@ -2,11 +2,9 @@
 package edu.gatech.cic.teams.sudoers;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
@@ -18,8 +16,7 @@ import android.widget.TextView;
  * @version 1.0
  * 
  */
-public class ChildTextView extends TextView implements OnTouchListener,
-		OnClickListener {
+public class ChildTextView extends TextView implements OnClickListener {
 	/**
 	 * The child object that shall be pass to the next screen on clicking this
 	 * text view
@@ -32,6 +29,7 @@ public class ChildTextView extends TextView implements OnTouchListener,
 	 * the list
 	 */
 	private static boolean sColor = false;
+	private Context mContext;
 
 	/**
 	 * The constructor method.
@@ -57,6 +55,7 @@ public class ChildTextView extends TextView implements OnTouchListener,
 		setClickable(true);
 		// setOnTouchListener(this);
 		setOnClickListener(this);
+		mContext = context;
 	}
 
 	/**
@@ -77,24 +76,10 @@ public class ChildTextView extends TextView implements OnTouchListener,
 	 *            The view the was clicked.
 	 */
 	public void onClick(View v) {
-		Log.v(toString(),
-				"Internal OnClick Called! for Child: " + mChild.getName());
-	}
-
-	/**
-	 * Just a test <br/>
-	 * TODO: remove this.
-	 * 
-	 * @param v
-	 *            The view the touch event has been dispatched to.
-	 * @param event
-	 *            The MotionEvent object containing full information about the
-	 *            event.
-	 * 
-	 * @return True if the listener has consumed the event, false otherwise.
-	 */
-	public boolean onTouch(View v, MotionEvent event) {
-		Log.v(toString(), "Internal OnTouchCalled!");
-		return true;
+		Intent intent = new Intent();
+		intent.setClass(mContext, ChildScreen.class);
+		intent.putExtra("childId", mChild.getChildId());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		v.getContext().startActivity(intent);
 	}
 }

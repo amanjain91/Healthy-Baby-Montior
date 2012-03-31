@@ -23,6 +23,7 @@ public class DummyScreen extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
+		// FIXME
 		startActivity(new HeightDayChart().execute(getApplicationContext(),
 				new Child(1, getApplicationContext())));
 	}
