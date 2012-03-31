@@ -12,14 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ChildScreen extends Activity implements OnClickListener {
+	/** The child represented by this screen. */
 	private Child mChild;
+	/** The notification center that will update itself */
 	private NotificationCenter mNC;
-	private Button mHeightGraph, mWeightGraph, mBmiGraph, mVaccineGraph,
-			mEditProfile;
+	/** The button for showing the Height Graph */
+	private Button mHeightGraph;
+	private Button mWeightGraph;
+	private Button mBmiGraph;
+	private Button mVaccineGraph;
+	private Button mEditProfile;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/** The top layout */
 		LinearLayout topLayout = new LinearLayout(getApplicationContext());
 		Intent i = getIntent();
 		mChild = new Child(i.getIntExtra("childId", -1),
@@ -29,10 +36,14 @@ public class ChildScreen extends Activity implements OnClickListener {
 		mBmiGraph = new Button(getApplicationContext());
 		mVaccineGraph = new Button(getApplicationContext());
 		mEditProfile = new Button(getApplicationContext());
+		TextView t = new TextView(this.getApplicationContext());
+		mNC = new NotificationCenter(new Child(1, getApplicationContext()),
+				getApplicationContext());
+		LinearLayout buttonsLayout = new LinearLayout(getApplicationContext());
 		Log.v(getClass().getSimpleName(), "ChildScreen OnCreate called!");
 
 		mHeightGraph.setLayoutParams(new LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT));
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
 		mWeightGraph.setLayoutParams(new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -45,6 +56,9 @@ public class ChildScreen extends Activity implements OnClickListener {
 
 		mEditProfile.setLayoutParams(new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		topLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT));
+
 		mHeightGraph.setText("H");
 		mWeightGraph.setText("W");
 		mBmiGraph.setText("B");
@@ -58,27 +72,25 @@ public class ChildScreen extends Activity implements OnClickListener {
 		mEditProfile.setOnClickListener(this);
 
 		topLayout.setOrientation(LinearLayout.VERTICAL);
-		topLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
-		TextView t = new TextView(this.getApplicationContext());
+		buttonsLayout.setOrientation(LinearLayout.HORIZONTAL);
+
 		t.setText("Testing a TextView");
 		topLayout.addView(t);
-		LinearLayout buttonsLayout = new LinearLayout(getApplicationContext());
+
 		buttonsLayout.setLayoutParams(new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
-		buttonsLayout.setOrientation(LinearLayout.HORIZONTAL);
 
 		buttonsLayout.addView(mHeightGraph);
 		buttonsLayout.addView(mWeightGraph);
 		buttonsLayout.addView(mBmiGraph);
 		buttonsLayout.addView(mVaccineGraph);
 		buttonsLayout.addView(mEditProfile);
-		// mNC = new NotificationCenter(new Child(1, getApplicationContext()),
-		// getApplicationContext());
-		// topLayout.addView(mNC);
-		// topLayout.addView(buttonsLayout);
+
+		topLayout.addView(mNC);
+		topLayout.addView(buttonsLayout);
+
 		setContentView(topLayout);
+
 		Log.v(getClass().getSimpleName(), "End OnCreate()");
 	}
 
