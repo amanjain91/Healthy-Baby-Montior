@@ -87,6 +87,31 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		for (int i = 0; i < data.lengthdata.length; i++) {
 			db.execSQL(data.lengthdata[i]);
 		}
+		db.execSQL("DROP TABLE IF EXISTS weightchart;");
+		db.execSQL("CREATE TABLE weightchart (Day INTEGER PRIMARY KEY, L Integer, M Double, S Double, P01 Double, P1 Double, P3 Double, P5 Double, P10 Double, P15 Double, P25 Double, P50 Double, P75 Double, P85 Double, P90 Double, P95 Double, P97 Double, P99 Double, P999 Double);");
+		for (int i=0; i<data.weightdata.length; i++) {
+			values = new ContentValues();
+			values.put("Day", i);
+			values.put("L", data.weightdata[i][1]);
+			values.put("M", data.weightdata[i][2]);
+			values.put("S", data.weightdata[i][3]);
+			values.put("P01", data.weightdata[i][4]);
+			values.put("P1", data.weightdata[i][5]);
+			values.put("P3", data.weightdata[i][6]);
+			values.put("P5", data.weightdata[i][7]);
+			values.put("P10", data.weightdata[i][8]);
+			values.put("P15", data.weightdata[i][9]);
+			values.put("P25", data.weightdata[i][10]);
+			values.put("P50", data.weightdata[i][11]);
+			values.put("P75", data.weightdata[i][12]);
+			values.put("P85", data.weightdata[i][13]);
+			values.put("P90", data.weightdata[i][14]);
+			values.put("P95", data.weightdata[i][15]);
+			values.put("P97", data.weightdata[i][16]);
+			values.put("P99", data.weightdata[i][17]);
+			values.put("P999", data.weightdata[i][18]);
+			db.insert("weightchart", null, values);
+		}
 
 	}
 
