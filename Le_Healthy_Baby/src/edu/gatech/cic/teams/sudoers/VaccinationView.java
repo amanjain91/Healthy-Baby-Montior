@@ -1,7 +1,6 @@
 package edu.gatech.cic.teams.sudoers;
 
 import android.content.Context;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,19 +16,18 @@ public class VaccinationView extends LinearLayout {
 		super(context);
 		this.childID = childID;
 		this.vaccineName = vaccineName;
-		
+
 		vaccineCheckBox = new CheckBox(context);
 		this.vaccineCheckBox.setChecked(checkStatus);
 		setOrientation(HORIZONTAL);
 		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
-		
+
 		textView = new TextView(context);
 		textView.setText(vaccineName);
-		
+
 		addView(vaccineCheckBox);
 		addView(textView);
-		
-		
+
 	}
 }

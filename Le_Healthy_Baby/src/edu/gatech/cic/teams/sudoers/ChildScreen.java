@@ -14,12 +14,19 @@ import android.widget.TextView;
 public class ChildScreen extends Activity implements OnClickListener {
 	/** The child represented by this screen. */
 	private Child mChild;
+
 	/** The notification center that will update itself */
 	private NotificationCenter mNC;
+
 	/** The button for showing the Height Graph */
 	private Button mHeightGraph;
+
+	/** The button for showing the weight graph */
 	private Button mWeightGraph;
+	
+	/** The button for show the weight graph */
 	private Button mBmiGraph;
+	
 	private Button mVaccineGraph;
 	private Button mEditProfile;
 
