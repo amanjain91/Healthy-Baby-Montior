@@ -101,6 +101,11 @@ public class ChildScreen extends Activity implements OnClickListener {
 		} else if (v == mWeightGraph) {
 		} else if (v == mBmiGraph) {
 		} else if (v == mVaccineGraph) {
+			Intent i = new Intent(ChildScreen.this, VaccinationScreen.class);
+			i.putExtra("mm", mChild.getBirthMonth());
+			i.putExtra("yy", mChild.getBirthYear());
+			i.putExtra("childId", mChild.getChildId());
+			startActivity(i);
 		} else if (v == mEditProfile) {
 		}
 	}

@@ -13,16 +13,20 @@ import java.util.Calendar;
 
 public class VaccinationScreen extends Activity {
 	private LinearLayout mMainLayout;
-	private int mm, yy;
+	private int mm, yy, childId;
 	private static String[][] chart = VaccinationData.getChart();
 	private static ArrayList<String> vList;
 
+	/**
+	 * 
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent i = getIntent();
-		mm = i.getIntExtra("mm", 1);
-		yy = i.getIntExtra("yy", 2012);
+		mm = i.getExtras().getInt("mm");
+		yy = i.getExtras().getInt("yy");
+		childId = i.getExtras().getInt("childId");
 		Log.v(getClass().getSimpleName(), "mm: " + mm);
 		Log.v(getClass().getSimpleName(), "yy: " + yy);
 		vList = new ArrayList<String>();
