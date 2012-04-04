@@ -33,7 +33,7 @@ import android.graphics.Paint.Align;
 /**
  * Average temperature demo chart.
  */
-public class HeightDayChart extends AbstractDemoChart {
+public class MyChart extends AbstractDemoChart {
 	/**
 	 * Executes the chart demo.
 	 * 
@@ -74,8 +74,8 @@ public class HeightDayChart extends AbstractDemoChart {
 		} while (c.moveToNext());
 		c.close();
 
-		//initializing height to -5
-		for (i=0; i<heightData.length; i++) {
+		// initializing height to -5
+		for (i = 0; i < heightData.length; i++) {
 			heightData[i] = -5;
 		}
 		c = db.query(aChild.getDataTableName(),
@@ -84,7 +84,7 @@ public class HeightDayChart extends AbstractDemoChart {
 		i = 0;
 		// retreiving height data. approximating day to the nearest factor*x
 		do {
-			temp = (int) (c.getDouble(0)/ factor);
+			temp = (int) (c.getDouble(0) / factor);
 			heightData[temp] = c.getDouble(1);
 			i++;
 		} while (c.moveToNext());

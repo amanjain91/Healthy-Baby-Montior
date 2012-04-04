@@ -1,6 +1,40 @@
 package edu.gatech.cic.teams.sudoers;
 
 public class VaccinationData {
+	private static final Vaccination[] allVaccinations = { new Vaccination("a",
+			"b", "c") };
+
+	public static String[] getSQLTemplate(String id) {
+		String[] returnValue = new String[allVaccinations.length + 2];
+		String tableName = "vaccinations_of_" + id;
+		returnValue[0] = "Drop table if exists statement here";
+		returnValue[1] = "create table state ment here";
+		int i = 2;
+		for (Vaccination v : allVaccinations) {
+			returnValue[i++] = "ADD statement SQL template " + v.s; // Use all
+																	// the
+																	// fields
+		}
+		return returnValue;
+	}
+
+	public static class Vaccination {
+		public String s, e, n;
+
+		/**
+		 * All parameters in SQL format
+		 * 
+		 * @param name
+		 * @param startDate
+		 * @param endDate
+		 */
+		public Vaccination(String name, String startDate, String endDate) {
+			s = startDate;
+			e = endDate;
+			n = name;
+		}
+	}
+
 	private static String[][] chart;
 	static boolean firstTime = true;
 
@@ -151,7 +185,7 @@ public class VaccinationData {
 			chart[8][11] = "Varicella";
 			chart[9][11] = "Hepatitis A";
 			chart[10][11] = "Meningococca";
-			
+
 			firstTime = false;
 		}
 		return chart;

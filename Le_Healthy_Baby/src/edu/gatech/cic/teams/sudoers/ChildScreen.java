@@ -23,10 +23,10 @@ public class ChildScreen extends Activity implements OnClickListener {
 
 	/** The button for showing the weight graph */
 	private Button mWeightGraph;
-	
+
 	/** The button for show the weight graph */
 	private Button mBmiGraph;
-	
+
 	private Button mVaccineGraph;
 	private Button mEditProfile;
 
@@ -46,6 +46,7 @@ public class ChildScreen extends Activity implements OnClickListener {
 		TextView t = new TextView(this.getApplicationContext());
 		mNC = new NotificationCenter(new Child(1, getApplicationContext()),
 				getApplicationContext());
+
 		LinearLayout buttonsLayout = new LinearLayout(getApplicationContext());
 		Log.v(getClass().getSimpleName(), "ChildScreen OnCreate called!");
 
@@ -103,8 +104,8 @@ public class ChildScreen extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 		if (v == mHeightGraph) {
-			startActivity(new HeightDayChart().execute(getApplicationContext(),
-					mChild));
+			startActivity(new MyChart()
+					.execute(getApplicationContext(), mChild));
 		} else if (v == mWeightGraph) {
 		} else if (v == mBmiGraph) {
 		} else if (v == mVaccineGraph) {
