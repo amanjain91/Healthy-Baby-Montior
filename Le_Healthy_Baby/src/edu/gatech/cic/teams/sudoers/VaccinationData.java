@@ -1,19 +1,40 @@
 package edu.gatech.cic.teams.sudoers;
 
 public class VaccinationData {
-	private static final Vaccination[] allVaccinations = { new Vaccination("a",
-			"b", "c") };
+	private static final Vaccination[] allVaccinations = {
+			new Vaccination("Hepatitis B Dose 1", "0", "2"),
+			new Vaccination("Hepatitis B Dose 2", "6", "18"),
+			new Vaccination("Rotavirus", "2", "6"),
+			new Vaccination("Diphtheria, tetanus, pertussis Dose 1", "2", "6"),
+			new Vaccination("Diphtheria, tetanus, pertussis Dose 2", "15", "18"),
+			new Vaccination("Diphtheria, tetanus, pertussis Dose 3", "48", "72"),
+			new Vaccination("Haemophilus influenzae type b Dose 1", "2", "6"),
+			new Vaccination("Haemophilus influenzae type b Dose 2", "12", "15"),
+			new Vaccination("Pneumococcal Dose 1", "2", "6"),
+			new Vaccination("Pneumococcal Dose 2", "12", "15"),
+			new Vaccination("Inactivated poliovirus Dose 1", "2", "18"),
+			new Vaccination("Inactivated poliovirus Dose 2", "48", "72"),
+			new Vaccination("Influenza", "6", "72"),
+			new Vaccination("Measles, mumps, rubella Dose 1", "12", "15"),
+			new Vaccination("Measles, mumps, rubella Dose 2", "48", "72"),
+			new Vaccination("Varicella Dose 1", "12", "15"),
+			new Vaccination("Varicella Dose 2", "48", "72"),
+			new Vaccination("Hepatitis A", "12", "72"),
+			new Vaccination("Meningococca", "9", "72"), };
 
 	public static String[] getSQLTemplate(String id) {
 		String[] returnValue = new String[allVaccinations.length + 2];
 		String tableName = "vaccinations_of_" + id;
-		returnValue[0] = "Drop table if exists statement here";
-		returnValue[1] = "create table state ment here";
+		returnValue[0] = "DROP TABLE IF EXISTS " + tableName;
+		returnValue[1] = "CREATE TABLE " + tableName
+				+ " (  VACCINE_ID INTEGER PRIMARY KEY, "
+				+ "VACCIME_NAME TEXT, " + "START_DATE INT," + "END_DATE INT,"
+				+ "VACC_GIVEN INT" + " );";
 		int i = 2;
 		for (Vaccination v : allVaccinations) {
-			returnValue[i++] = "ADD statement SQL template " + v.s; // Use all
-																	// the
-																	// fields
+			returnValue[i++] = "INSERT INTO " + tableName + " VALUES (" + v.n
+					+ ", " + v.s + ", " + v.e + ", " + 0 + ");";
+
 		}
 		return returnValue;
 	}
