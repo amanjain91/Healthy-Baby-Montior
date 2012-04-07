@@ -87,9 +87,16 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		for (int i = 0; i < data.lengthdata.length; i++) {
 			db.execSQL(data.lengthdata[i]);
 		}
+		String[] vaccinationSqlStatements;
+		for (int x = 1; x <= 3; x++) {
+			vaccinationSqlStatements = VaccinationData.getSQLTemplate(x);
+			for (String i : vaccinationSqlStatements) {
+				db.execSQL(i);
+			}
+		}
 		db.execSQL("DROP TABLE IF EXISTS weightchart;");
 		db.execSQL("CREATE TABLE weightchart (Day INTEGER PRIMARY KEY, L Integer, M Double, S Double, P01 Double, P1 Double, P3 Double, P5 Double, P10 Double, P15 Double, P25 Double, P50 Double, P75 Double, P85 Double, P90 Double, P95 Double, P97 Double, P99 Double, P999 Double);");
-		for (int i=0; i<data.weightdata.length; i++) {
+		for (int i = 0; i < data.weightdata.length; i++) {
 			values = new ContentValues();
 			values.put("Day", i);
 			values.put("L", data.weightdata[i][1]);
@@ -112,7 +119,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			values.put("P999", data.weightdata[i][18]);
 			db.insert("weightchart", null, values);
 		}
-
 	}
 
 	/**

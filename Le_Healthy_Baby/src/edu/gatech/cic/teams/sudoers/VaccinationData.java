@@ -22,9 +22,9 @@ public class VaccinationData {
 			new Vaccination("Hepatitis A", "12", "72"),
 			new Vaccination("Meningococca", "9", "72"), };
 
-	public static String[] getSQLTemplate(String id) {
+	public static String[] getSQLTemplate(int id) {
 		String[] returnValue = new String[allVaccinations.length + 2];
-		String tableName = "vaccinations_of_" + id;
+		String tableName = "vaccinations_of_" + Integer.toString(id);
 		returnValue[0] = "DROP TABLE IF EXISTS " + tableName;
 		returnValue[1] = "CREATE TABLE " + tableName
 				+ " (  VACCINE_ID INTEGER PRIMARY KEY, "
@@ -32,9 +32,9 @@ public class VaccinationData {
 				+ "VACC_GIVEN INT" + " );";
 		int i = 2;
 		for (Vaccination v : allVaccinations) {
-			returnValue[i++] = "INSERT INTO " + tableName + " VALUES (" + v.n
-					+ ", " + v.s + ", " + v.e + ", " + 0 + ");";
-
+			returnValue[i++] = "INSERT INTO " + tableName + " VALUES ( "
+					+ (i - 2) + " , " + v.n + ", " + v.s + ", " + v.e + ", "
+					+ 0 + ");";
 		}
 		return returnValue;
 	}
@@ -52,7 +52,7 @@ public class VaccinationData {
 		public Vaccination(String name, String startDate, String endDate) {
 			s = startDate;
 			e = endDate;
-			n = name;
+			n = "'" + name + "'";
 		}
 	}
 
