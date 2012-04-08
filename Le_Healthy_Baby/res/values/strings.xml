@@ -21,5 +21,6 @@
     <string name="StringHeight">Height: </string>
     <string name="StringName">Name: </string>
     <string name="StringWeight">Weight: </string>
+    <string name="StringAddChild">Add Child</string>
 
 </resources>

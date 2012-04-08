@@ -51,8 +51,6 @@
         </activity>
         <activity android:name=".SongsActivity" >
         </activity>
-        <activity android:name=".AlbumsActivity" >
-        </activity>
         <activity android:name=".NotificationsActivity" >
         </activity>
     </application>
