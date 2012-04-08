@@ -111,7 +111,7 @@ public class HomeScreen extends ListActivity implements OnClickListener {
 		Log.v(this.getLocalClassName(), "Position: " + position + " Child: "
 				+ mAllChildren[position - 1].getName());
 		Intent intent = new Intent();
-		intent.setClass(getApplicationContext(), ChildScreen.class);
+		intent.setClass(getApplicationContext(), ChildScreenT.class);
 		intent.putExtra("childId", mAllChildren[position - 1].getChildId());
 		intent.putExtra("childName", mAllChildren[position - 1].getName());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

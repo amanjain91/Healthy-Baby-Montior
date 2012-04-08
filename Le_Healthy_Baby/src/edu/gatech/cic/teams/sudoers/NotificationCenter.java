@@ -20,6 +20,7 @@ public class NotificationCenter extends LinearLayout {
 		temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		temp.setText("hello world!");
+
 		Log.v("Notification Center", mChild.toString());
 		addView(temp);
 	}
