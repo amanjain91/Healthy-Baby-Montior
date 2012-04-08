@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import android.app.Activity;
@@ -6,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +23,7 @@ public class VaccinationScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle("Vaccinations Taken");
 		Intent i = getIntent();
 		mm = i.getExtras().getInt("mm");
 		yy = i.getExtras().getInt("yy");
@@ -45,7 +46,6 @@ public class VaccinationScreen extends Activity {
 
 	public void makeVaccineList() {
 		mMainLayout.removeAllViews();
-		TextView temp;
 		// mm = 1;
 		// yy = 2011;
 		Calendar cal = Calendar.getInstance();
@@ -116,10 +116,6 @@ public class VaccinationScreen extends Activity {
 		}
 
 		for (int i = 0; i < vList.size(); i++) {
-			// temp = new TextView(getApplicationContext());
-			// temp.setText(vList.get(i));
-			// temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-			// LayoutParams.WRAP_CONTENT));
 			mMainLayout.addView(new VaccinationView(getApplicationContext(),
 					childId, vList.get(i), false));
 		}

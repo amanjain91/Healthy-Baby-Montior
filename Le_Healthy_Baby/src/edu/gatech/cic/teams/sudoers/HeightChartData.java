@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import java.io.File;
@@ -76,5 +77,4 @@ public class HeightChartData {
 		SQL = SQL + query;
 		return SQL;
 	}
-
 }

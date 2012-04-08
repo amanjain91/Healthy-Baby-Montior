@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import android.content.Context;
@@ -24,7 +25,8 @@ public class VaccinationView extends LinearLayout {
 				LayoutParams.WRAP_CONTENT));
 
 		textView = new TextView(context);
-		textView.setText(vaccineName);
+		textView.setText(this.vaccineName + "id: "
+				+ Integer.toString(this.childID));
 
 		addView(vaccineCheckBox);
 		addView(textView);

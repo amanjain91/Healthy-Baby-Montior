@@ -79,6 +79,7 @@ public class ChildTextView extends TextView implements OnClickListener {
 		Intent intent = new Intent();
 		intent.setClass(mContext, ChildScreen.class);
 		intent.putExtra("childId", mChild.getChildId());
+		intent.putExtra("childName", mChild.getName());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		v.getContext().startActivity(intent);
 	}

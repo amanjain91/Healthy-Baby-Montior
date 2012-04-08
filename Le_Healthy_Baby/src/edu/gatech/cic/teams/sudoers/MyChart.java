@@ -1,18 +1,4 @@
-/**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
- *  
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *  
- *      http://www.apache.org/licenses/LICENSE-2.0
- *  
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import java.util.ArrayList;
@@ -30,9 +16,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 
-/**
- * Average temperature demo chart.
- */
 public class MyChart extends AbstractDemoChart {
 	/**
 	 * Executes the chart demo.
@@ -119,7 +102,8 @@ public class MyChart extends AbstractDemoChart {
 		renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
 		renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 		Intent intent = ChartFactory.getLineChartIntent(context,
-				buildDataset(titles, x, values), renderer, "Le Healthy Baby");
+				buildDataset(titles, x, values), renderer, aChild.getName());
+
 		c.close();
 		db.close();
 		return intent;

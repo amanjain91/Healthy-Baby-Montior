@@ -1,3 +1,4 @@
+/** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
 import android.app.Activity;
@@ -38,6 +39,7 @@ public class ChildScreen extends Activity implements OnClickListener {
 		Intent i = getIntent();
 		mChild = new Child(i.getIntExtra("childId", -1),
 				getApplicationContext());
+		setTitle(i.getExtras().getCharSequence("childName"));
 		mHeightGraph = new Button(getApplicationContext());
 		mWeightGraph = new Button(getApplicationContext());
 		mBmiGraph = new Button(getApplicationContext());

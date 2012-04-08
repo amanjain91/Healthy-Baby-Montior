@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
  * @version 1.0
  */
 public class HomeScreen extends Activity implements OnClickListener {
-
 	/** The button variable for adding a new child */
 	private Button mAddChildButton;
 
