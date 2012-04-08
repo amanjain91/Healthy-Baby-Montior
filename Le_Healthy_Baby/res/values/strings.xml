@@ -8,5 +8,18 @@
     <string name="username_hint">Enter Username</string>
     <string name="password_hint">Enter Password</string>
     <string name="login_button_text">Login</string>
+    <string name="StringCm">cm</string>
+    <string name="StringWeight_in_lbs">Weight in lbs</string>
+    <string name="StringSubmit">Submit</string>
+    <string name="StringSex:">Sex:</string>
+    <string name="StringMale">Male</string>
+    <string name="Stringlbs">lbs</string>
+    <string name="StringHeightInCms">Height in cms</string>
+    <string name="StringFemale">Female</string>
+    <string name="StringEnterName">Enter name</string>
+    <string name="StringDateOfBirth">Date of Birth:</string>
+    <string name="StringHeight">Height</string>
+    <string name="StringName">Name</string>
+    <string name="StringWeight">Weight</string>
 
 </resources>
