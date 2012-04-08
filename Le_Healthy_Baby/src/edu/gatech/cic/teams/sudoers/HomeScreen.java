@@ -1,7 +1,7 @@
 /** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * This screen lists children as TextViews and on clicking then leads to their
@@ -20,30 +19,15 @@ import android.widget.LinearLayout;
  * @author Suren_Nihalani
  * @version 1.0
  */
-public class HomeScreen extends Activity implements OnClickListener {
-	/** The button variable for adding a new child */
-	private Button mAddChildButton;
-
-	/** The root layout of this activity. */
-	private LinearLayout mMainLayout;
-
+public class HomeScreen extends ListActivity implements OnClickListener {
 	/** The children to be drawn as a list on the screen */
 	private Child[] mAllChildren;
 
 	/** The database open helper used by everyone in this activity. */
 	private DatabaseOpenHelper mReadableWritableDatabase;
 
-	/** The layout where each ChildTextView should be added. */
-	private LinearLayout mChildrenListLayout;
-
 	/** The cursor object to be used for every query result. */
 	private Cursor mCursor;
-
-	/**
-	 * Made this LayoutParams object static so as to avoid double initialization
-	 */
-	private static final LayoutParams BOTH_FILL_PARENT = new LayoutParams(
-			LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 
 	/**
 	 * The method called on creation of this activity.
@@ -65,7 +49,6 @@ public class HomeScreen extends Activity implements OnClickListener {
 		initLayout();
 		getChildren();
 		updateChildren();
-		setContentView(mMainLayout);
 	}
 
 	/**
@@ -76,7 +59,6 @@ public class HomeScreen extends Activity implements OnClickListener {
 		Log.v(getClass().getSimpleName(), "onResume() called.");
 		getChildren();
 		updateChildren();
-		mMainLayout.invalidate();
 	}
 
 	/**
@@ -107,40 +89,33 @@ public class HomeScreen extends Activity implements OnClickListener {
 	 * Context View hasn't been set yet.
 	 */
 	private void initLayout() {
-		final LinearLayout aHorizontalLayout = new LinearLayout(
-				getApplicationContext());
-		mMainLayout = new LinearLayout(getApplicationContext());
-		mChildrenListLayout = new LinearLayout(getApplicationContext());
-
-		mMainLayout.setLayoutParams(BOTH_FILL_PARENT);
-		mMainLayout.setOrientation(LinearLayout.VERTICAL);
-
-		mChildrenListLayout.setLayoutParams(BOTH_FILL_PARENT);
-		mChildrenListLayout.setOrientation(LinearLayout.VERTICAL);
-
-		aHorizontalLayout.setLayoutParams(new LayoutParams(
-				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-		aHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-		mAddChildButton = new Button(getApplicationContext());
-		mAddChildButton.setOnClickListener(this);
-		mAddChildButton.setText("Add Child");
-
-		aHorizontalLayout.addView(mAddChildButton);
-
-		mMainLayout.addView(aHorizontalLayout);
-		mMainLayout.addView(mChildrenListLayout);
+		getListView().addHeaderView(
+				View.inflate(this, R.layout.list_view_header, null));
 	}
 
 	/**
 	 * Updates the view from
 	 */
 	private void updateChildren() {
-		mChildrenListLayout.removeAllViews();
+		String[] temp = new String[mAllChildren.length];
 		for (int i = 0; i < mAllChildren.length; i++) {
-			mChildrenListLayout.addView(new ChildTextView(
-					getApplicationContext(), mAllChildren[i]));
+			temp[i] = mAllChildren[i].getName();
 		}
+		setListAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, temp));
+		getListView().invalidate();
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Log.v(this.getLocalClassName(), "Position: " + position + " Child: "
+				+ mAllChildren[position - 1].getName());
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), ChildScreen.class);
+		intent.putExtra("childId", mAllChildren[position - 1].getChildId());
+		intent.putExtra("childName", mAllChildren[position - 1].getName());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
 	}
 
 	/**
