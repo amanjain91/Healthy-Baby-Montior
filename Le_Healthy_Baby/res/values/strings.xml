@@ -18,8 +18,8 @@
     <string name="StringFemale">Female</string>
     <string name="StringEnterName">Enter name</string>
     <string name="StringDateOfBirth">Date of Birth:</string>
-    <string name="StringHeight">Height</string>
-    <string name="StringName">Name</string>
-    <string name="StringWeight">Weight</string>
+    <string name="StringHeight">Height: </string>
+    <string name="StringName">Name: </string>
+    <string name="StringWeight">Weight: </string>
 
 </resources>
