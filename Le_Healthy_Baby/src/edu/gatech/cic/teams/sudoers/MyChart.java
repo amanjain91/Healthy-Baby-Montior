@@ -17,6 +17,10 @@ import android.graphics.Color;
 import android.graphics.Paint.Align;
 
 public class MyChart extends AbstractDemoChart {
+	public enum GraphType {
+		Height, Weight, BMI
+	};
+
 	/**
 	 * Executes the chart demo.
 	 * 
@@ -25,7 +29,7 @@ public class MyChart extends AbstractDemoChart {
 	 * @return the built intent
 	 */
 	public Intent execute(Context context, Child aChild) {
-		// FIXME
+
 		Child.initializeDummyData(aChild.getChildId(), context);
 		Cursor c;
 		List<double[]> x = new ArrayList<double[]>();

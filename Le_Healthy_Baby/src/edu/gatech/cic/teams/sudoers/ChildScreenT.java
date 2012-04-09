@@ -11,6 +11,7 @@ import android.widget.TabHost;
 @SuppressWarnings("deprecation")
 public class ChildScreenT extends TabActivity {
 	private Child mChild;
+	private String mChildName;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -18,6 +19,7 @@ public class ChildScreenT extends TabActivity {
 		Intent i = getIntent();
 		mChild = new Child(i.getIntExtra("childId", -1),
 				getApplicationContext());
+		mChildName = i.getStringExtra("childName");
 		setTitle(i.getExtras().getCharSequence("childName"));
 		Resources res = getResources();
 		TabHost tabHost = getTabHost();
@@ -25,8 +27,9 @@ public class ChildScreenT extends TabActivity {
 		Intent intent;
 
 		Intent notificationsIntent = new Intent().setClass(this,
-				NotificationsActivity.class);
-
+				NotificationActivity.class);
+		notificationsIntent.putExtra("childId", mChild.getChildId());
+		notificationsIntent.putExtra("childName", mChildName);
 		spec = tabHost
 				.newTabSpec("notifications")
 				.setIndicator("Home",
@@ -69,7 +72,5 @@ public class ChildScreenT extends TabActivity {
 						res.getDrawable(R.drawable.ic_tab_albums_grey))
 				.setContent(vaccinationsIntent);
 		tabHost.addTab(spec);
-
-		tabHost.setCurrentTab(2);
 	}
 }
