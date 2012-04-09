@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class VaccinationView extends LinearLayout {
-	private int childID;
+	// private int childID;
 	private String vaccineName;
 	private CheckBox vaccineCheckBox;
 	private TextView textView;
@@ -15,7 +15,7 @@ public class VaccinationView extends LinearLayout {
 	public VaccinationView(Context context, int childID, String vaccineName,
 			boolean checkStatus) {
 		super(context);
-		this.childID = childID;
+		// this.childID = childID;
 		this.vaccineName = vaccineName;
 
 		vaccineCheckBox = new CheckBox(context);

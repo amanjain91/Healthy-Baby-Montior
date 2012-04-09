@@ -32,7 +32,7 @@ public class ChildScreenT extends TabActivity {
 		notificationsIntent.putExtra("childName", mChildName);
 		spec = tabHost
 				.newTabSpec("notifications")
-				.setIndicator("Home",
+				.setIndicator("N.",
 						res.getDrawable(R.drawable.ic_tab_artists_grey))
 				.setContent(notificationsIntent);
 		tabHost.addTab(spec);

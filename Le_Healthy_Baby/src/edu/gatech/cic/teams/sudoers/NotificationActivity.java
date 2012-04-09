@@ -6,24 +6,17 @@ import java.util.Arrays;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class NotificationActivity extends ListActivity {
 	private int mChildId;
 	private String mChildName;
 	private ArrayList<MyNotification> m;
-	private ArrayAdapter<MyNotification> adapter;
+	private NotificationsAdapter adapter;
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-				"Linux", "OS/2" };
 		MyNotification[] temp = { new MyNotification("lol"),
 				new MyNotification("Another Lol") };
 		m = new ArrayList<MyNotification>(Arrays.asList(temp));
