@@ -28,6 +28,8 @@ public class NotificationActivity extends ListActivity {
 				new MyNotification("Another Lol") };
 		m = new ArrayList<MyNotification>(Arrays.asList(temp));
 		adapter = new NotificationsAdapter(this, m);
+		getListView().addHeaderView(
+				View.inflate(this, R.layout.notifications_header, null));
 		getListView().addFooterView(
 				View.inflate(this, R.layout.add_data_button_layout, null));
 		mChildId = getIntent().getExtras().getInt("childId");
@@ -46,15 +48,17 @@ public class NotificationActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		MyNotification item = (MyNotification) getListAdapter().getItem(
-				position);
-		if (item.isCheck) {
-			m.remove(position);
-			adapter = new NotificationsAdapter(this, m);
-			setListAdapter(adapter);
-		} else {
-			item.c.setChecked(true);
-			item.isCheck = true;
+		if (position > 0) {
+			MyNotification item = (MyNotification) getListAdapter().getItem(
+					position - 1);
+			if (item.isCheck) {
+				m.remove(position - 1);
+				adapter = new NotificationsAdapter(this, m);
+				setListAdapter(adapter);
+			} else {
+				item.c.setChecked(true);
+				item.isCheck = true;
+			}
 		}
 	}
 }
