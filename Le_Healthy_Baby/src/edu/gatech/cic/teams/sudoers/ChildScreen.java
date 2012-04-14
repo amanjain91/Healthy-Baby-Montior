@@ -66,8 +66,8 @@ public class ChildScreen extends Activity implements OnClickListener {
 
 		mEditProfile.setLayoutParams(new LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		topLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
+		topLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
 
 		mHeightGraph.setText("H");
 		mWeightGraph.setText("W");
@@ -106,8 +106,8 @@ public class ChildScreen extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 		if (v == mHeightGraph) {
-			startActivity(new MyChart()
-					.execute(getApplicationContext(), mChild));
+			startActivity(new HeightChart().execute(getApplicationContext(),
+					mChild));
 		} else if (v == mWeightGraph) {
 		} else if (v == mBmiGraph) {
 		} else if (v == mVaccineGraph) {

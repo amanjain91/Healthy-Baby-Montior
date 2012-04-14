@@ -21,7 +21,7 @@ public class VaccinationView extends LinearLayout {
 		vaccineCheckBox = new CheckBox(context);
 		this.vaccineCheckBox.setChecked(checkStatus);
 		setOrientation(HORIZONTAL);
-		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT));
 
 		textView = new TextView(context);

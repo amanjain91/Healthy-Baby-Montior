@@ -16,11 +16,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 
-public class MyChart extends AbstractDemoChart {
-	public enum GraphType {
-		Height, Weight, BMI
-	};
-
+public class HeightChart extends AbstractDemoChart {
 	/**
 	 * Executes the chart demo.
 	 * 

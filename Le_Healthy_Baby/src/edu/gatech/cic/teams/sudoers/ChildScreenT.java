@@ -37,8 +37,8 @@ public class ChildScreenT extends TabActivity {
 				.setContent(notificationsIntent);
 		tabHost.addTab(spec);
 
-		Intent heightIntent = new MyChart().execute(getApplicationContext(),
-				mChild);
+		Intent heightIntent = new HeightChart().execute(
+				getApplicationContext(), mChild);
 		spec = tabHost
 				.newTabSpec("height")
 				.setIndicator("Hgt",

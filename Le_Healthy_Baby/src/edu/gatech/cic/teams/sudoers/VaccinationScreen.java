@@ -38,8 +38,8 @@ public class VaccinationScreen extends Activity {
 
 	private void initLayout() {
 		mMainLayout = new LinearLayout(getApplicationContext());
-		mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
+		mMainLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
 		mMainLayout.setOrientation(LinearLayout.VERTICAL);
 
 	}

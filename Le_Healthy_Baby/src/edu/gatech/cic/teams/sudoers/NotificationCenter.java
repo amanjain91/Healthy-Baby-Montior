@@ -13,11 +13,11 @@ public class NotificationCenter extends LinearLayout {
 		super(applicationContext);
 		mChild = id;
 		mContext = applicationContext;
-		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		setOrientation(VERTICAL);
 		TextView temp = new TextView(mContext);
-		temp.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+		temp.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		temp.setText("hello world!");
 

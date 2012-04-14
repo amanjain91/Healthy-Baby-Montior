@@ -13,10 +13,10 @@ public class DummyScreen extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LinearLayout l = new LinearLayout(this.getApplicationContext());
-		l.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
+		l.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
 		Button open = new Button(this.getApplicationContext());
-		open.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+		open.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		open.setOnClickListener(this);
 		l.addView(open);
@@ -24,7 +24,7 @@ public class DummyScreen extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		startActivity(new MyChart().execute(getApplicationContext(), new Child(
-				1, getApplicationContext())));
+		startActivity(new HeightChart().execute(getApplicationContext(),
+				new Child(1, getApplicationContext())));
 	}
 }

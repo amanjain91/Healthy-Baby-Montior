@@ -49,7 +49,7 @@ public class ChildTextView extends TextView implements OnClickListener {
 		}
 		sColor = !sColor;
 		setTextSize(TEXT_SIZE);
-		setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		setText(mChild.getName());
 		setClickable(true);
