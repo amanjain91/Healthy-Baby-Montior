@@ -13,7 +13,6 @@ import android.view.View.OnClickListener;
 ;
 public class VaccinationView extends LinearLayout implements OnClickListener {
 	// private int childID;
-	private String vaccineName;
 	private CheckBox vaccineCheckBox;
 	private TextView textView;
 	private int mVacId;
@@ -24,7 +23,6 @@ public class VaccinationView extends LinearLayout implements OnClickListener {
 			String vaccineName, boolean checkStatus) {
 		super(context);
 		// this.childID = childID;
-		this.vaccineName = vaccineName;
 		mChildId = childId;
 		mVacId = vacId;
 		mContext = context;
@@ -35,7 +33,7 @@ public class VaccinationView extends LinearLayout implements OnClickListener {
 				LayoutParams.WRAP_CONTENT));
 
 		textView = new TextView(context);
-		textView.setText(this.vaccineName);
+		textView.setText(vaccineName);
 
 		addView(vaccineCheckBox);
 		addView(textView);

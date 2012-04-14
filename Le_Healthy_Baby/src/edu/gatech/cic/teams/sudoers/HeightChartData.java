@@ -57,7 +57,7 @@ public class HeightChartData {
 		P97 = sc.nextDouble();
 		P99 = sc.nextDouble();
 		P999 = sc.nextDouble();
-		String query = "INSERT INTO " + tablename + "VALUES " + "(" + day
+		String query = "INSERT INTO " + tablename + " VALUES " + "(" + day
 				+ ", " + L + ", " + M + ", " + S + ", " + P01 + ", " + P1
 				+ ", " + P3 + ", " + P5 + ", " + P10 + ", " + P15 + ", " + P25
 				+ ", " + P50 + ", " + P75 + ", " + P85 + ", " + P90 + ", "

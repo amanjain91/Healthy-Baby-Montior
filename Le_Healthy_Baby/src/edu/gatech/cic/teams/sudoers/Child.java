@@ -1,7 +1,6 @@
 /** Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php */
 package edu.gatech.cic.teams.sudoers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -78,22 +77,25 @@ public class Child {
 	 * 
 	 * @param id
 	 */
-	public static void initializeDummyData(int id, Context c) {
-		SQLiteDatabase myDb = new DatabaseOpenHelper(c).getWritableDatabase();
+	public static String[] initializeDummyData(int id) {
+		String[] notificationStatements = initializeNotificationCenter(id);
 		String mTableName = "data_" + id;
-		myDb.execSQL("DROP TABLE IF EXISTS " + mTableName + ";");
-		myDb.execSQL("CREATE TABLE "
+		String[] answer = new String[12 + notificationStatements.length];
+		int x = 0;
+		answer[x++] = "DROP TABLE IF EXISTS " + mTableName + ";";
+		answer[x++] = "CREATE TABLE "
 				+ mTableName
-				+ " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);");
-		ContentValues values = new ContentValues();
+				+ " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);";
+
 		for (int i = 0; i < 10; i++) {
-			values.put("Day", i * 3);
-			values.put("Height", 45 + Math.pow(-1, i) * i * 3);
-			values.put("Weight", 1);
-			values.put("BMI", 1);
-			myDb.insert(mTableName, null, values);
+			answer[x++] = "INSERT INTO " + mTableName + " VALUES (" + (i * 3)
+					+ " , " + (45 + Math.pow(-1, i) * i * 3) + " , 1, 1"
+					+ "); ";
 		}
-		myDb.close();
+		for (String s : notificationStatements) {
+			answer[x++] = s;
+		}
+		return answer;
 	}
 
 	public int getBirthMonth() {
@@ -108,4 +110,21 @@ public class Child {
 		return "vaccinations_of_" + AchildId;
 	}
 
+	public static String getNotificationTableName(int mChildId) {
+		return " notifications_of_" + mChildId + " ";
+	}
+
+	private static String[] initializeNotificationCenter(int mChildId) {
+		String[] reasons = { "Date", "Height", "Weight", "Vaccine" };
+		String[] statements = new String[reasons.length + 1];
+		String tableName = Child.getNotificationTableName(mChildId);
+		statements[0] = "CREATE TABLE "
+				+ tableName
+				+ "  ( id INTEGER PRIMARY KEY, ntype Text, value INTEGER , vcheck INTEGER ); ";
+		for (int i = 0; i < reasons.length; i++) {
+			statements[i + 1] = "INSERT INTO " + tableName + " VALUES ( "
+					+ (i + 1) + " , '" + reasons[i] + "' , 0, 0 ) ;";
+		}
+		return statements;
+	}
 }

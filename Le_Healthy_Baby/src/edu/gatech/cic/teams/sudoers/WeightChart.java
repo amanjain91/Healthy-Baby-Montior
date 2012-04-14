@@ -26,8 +26,6 @@ public class WeightChart extends AbstractDemoChart {
 	 * @return the built intent
 	 */
 	public Intent execute(Context context, Child aChild) {
-
-		Child.initializeDummyData(aChild.getChildId(), context);
 		Cursor c;
 		List<double[]> x = new ArrayList<double[]>();
 		List<double[]> values = new ArrayList<double[]>();

@@ -119,6 +119,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			values.put("P999", data.weightdata[i][18]);
 			db.insert("weightchart", null, values);
 		}
+
 	}
 
 	/**
@@ -136,6 +137,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.v("DatabaseOpenHelper", "Database Upgrade called!");
 		db.execSQL("DROP TABLE IF EXISTS children;");
+		for (int x = 1; x <= 3; x++) {
+			String[] dummyStatements = Child.initializeDummyData(x);
+			for (int i = 0; i < dummyStatements.length; i++) {
+				db.execSQL(dummyStatements[i]);
+			}
+		}
 		onCreate(db);
 	}
 
@@ -148,9 +155,5 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	 */
 	public String toString() {
 		return getClass().getSimpleName();
-	}
-
-	public void insertLengthData(String SQL) {
-
 	}
 }

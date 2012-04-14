@@ -56,7 +56,10 @@ public class NewChildActivity extends Activity {
 					null, mValues);
 			// TODO put the following code in Child.initializeDummyData(id)
 			// so that we can connect things in Database open helper.
-			Child.initializeDummyData(mID, this.getApplicationContext());
+			String[] statements = Child.initializeDummyData(mID);
+			for (String s : statements) {
+				db.execSQL(s);
+			}
 		} finally {
 			db.close();
 		}
