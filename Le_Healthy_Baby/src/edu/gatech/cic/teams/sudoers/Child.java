@@ -104,4 +104,8 @@ public class Child {
 		return mBirthYear;
 	}
 
+	public static String getVaccinationTableName(int AchildId) {
+		return "vaccinations_of_" + AchildId;
+	}
+
 }

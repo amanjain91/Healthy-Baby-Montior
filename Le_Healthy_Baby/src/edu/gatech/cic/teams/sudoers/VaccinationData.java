@@ -29,7 +29,7 @@ public class VaccinationData {
 		returnValue[0] = "DROP TABLE IF EXISTS " + tableName;
 		returnValue[1] = "CREATE TABLE " + tableName
 				+ " (  VACCINE_ID INTEGER PRIMARY KEY, "
-				+ "VACCIME_NAME TEXT, " + "START_DATE INT," + "END_DATE INT,"
+				+ "VACCINE_NAME TEXT, " + "START_DATE INT," + "END_DATE INT,"
 				+ "VACC_GIVEN INT" + " );";
 		int i = 2;
 		for (Vaccination v : allVaccinations) {

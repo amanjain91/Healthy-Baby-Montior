@@ -3,19 +3,18 @@ package edu.gatech.cic.teams.sudoers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class VaccinationScreen extends Activity {
 	private LinearLayout mMainLayout;
 	private int mm, yy, childId;
-	private static String[][] chart = VaccinationData.getChart();
-	private static ArrayList<String> vList;
 
 	/**
 	 * 
@@ -30,7 +29,6 @@ public class VaccinationScreen extends Activity {
 		childId = i.getExtras().getInt("childId");
 		Log.v(getClass().getSimpleName(), "mm: " + mm);
 		Log.v(getClass().getSimpleName(), "yy: " + yy);
-		vList = new ArrayList<String>();
 		initLayout();
 		makeVaccineList();
 		setContentView(mMainLayout);
@@ -46,87 +44,34 @@ public class VaccinationScreen extends Activity {
 
 	public void makeVaccineList() {
 		mMainLayout.removeAllViews();
-		// mm = 1;
-		// yy = 2011;
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH) + 1;
 		int year = cal.get(Calendar.YEAR);
 
 		int childYear = year - yy;
-		int childMonth;
-
-		if (childYear < 2) {
-			childMonth = month - mm;
+		int childMonth = month - mm;
+		int numberOfMonths = (Math.abs(childYear) * 12) + (childMonth);
+		SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext())
+				.getReadableDatabase();
+		Log.v("VaccinationScreen", "Child ID I got: " + childId);
+		Cursor c = db.query(Child.getVaccinationTableName(childId),
+				new String[] { "VACCINE_ID", "VACCINE_NAME", "VACC_GIVEN" },
+				"START_DATE<=?",
+				new String[] { Integer.toString(numberOfMonths) }, null, null,
+				null);
+		c.moveToFirst();
+		int i = 0;
+		VaccinationView temp;
+		boolean isChecked;
+		while (i < c.getCount()) {
+			isChecked = (c.getInt(2) == 1);
+			temp = new VaccinationView(this, childId,
+					c.getInt(0), c.getString(1), isChecked);
+			mMainLayout.addView(temp);
+			c.moveToNext();
+			i++;
 		}
-
-		else {
-			childMonth = 0;
-		}
-
-		if (childYear == 0) {
-			if (childMonth == 0) {
-				addToVList(0);
-			}
-
-			else if (childMonth == 1) {
-				addToVList(1);
-			}
-
-			else if (childMonth > 1 && childMonth <= 3) {
-				addToVList(2);
-			}
-
-			else if (childMonth > 3 && childMonth <= 5) {
-				addToVList(3);
-			}
-
-			else if (childMonth > 5 && childMonth <= 8) {
-				addToVList(4);
-			}
-
-			else if (childMonth > 8 && childMonth <= 11) {
-				addToVList(5);
-			}
-		}
-
-		else if (childYear == 1) {
-			if (childMonth >= 0 && childMonth <= 2) {
-				addToVList(6);
-			}
-
-			else if (childMonth > 2 && childMonth <= 5) {
-				addToVList(7);
-			}
-
-			else if (childMonth == 6) {
-				addToVList(8);
-			}
-
-			else if (childMonth > 6 && childMonth <= 11) {
-				addToVList(9);
-			}
-		}
-
-		else if (childYear > 1 && childYear <= 3) {
-			addToVList(10);
-		}
-
-		else {
-			addToVList(11);
-		}
-
-		for (int i = 0; i < vList.size(); i++) {
-			mMainLayout.addView(new VaccinationView(getApplicationContext(),
-					childId, vList.get(i), false));
-		}
-
-	}
-
-	public static void addToVList(int c) {
-		for (int i = 0; i < 11; i++) {
-			if (chart[i][c].compareTo("0") != 0) {
-				vList.add(chart[i][c]);
-			}
-		}
+		c.close();
+		db.close();
 	}
 }
