@@ -86,8 +86,8 @@ public class MyChart extends AbstractDemoChart {
 
 		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
 				Color.BLUE };
-		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
-				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
+		PointStyle[] styles = new PointStyle[] { PointStyle.SQUARE,
+				PointStyle.SQUARE, PointStyle.SQUARE, PointStyle.CIRCLE };
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 
 		int length = renderer.getSeriesRendererCount();
@@ -95,6 +95,7 @@ public class MyChart extends AbstractDemoChart {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i))
 					.setFillPoints(true);
 		}
+
 		setChartSettings(renderer, "Height Day Chart", "Days",
 				"Height (in cms)", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
