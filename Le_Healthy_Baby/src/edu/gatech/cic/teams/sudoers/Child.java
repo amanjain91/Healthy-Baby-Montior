@@ -118,7 +118,7 @@ public class Child {
 		String[] reasons = { "Date", "Height", "Weight", "Vaccine" };
 		String[] statements = new String[reasons.length + 1];
 		String tableName = Child.getNotificationTableName(mChildId);
-		statements[0] = "CREATE TABLE "
+		statements[0] = "CREATE TABLE IF NOT EXISTS"
 				+ tableName
 				+ "  ( id INTEGER PRIMARY KEY, ntype Text, value INTEGER , vcheck INTEGER ); ";
 		for (int i = 0; i < reasons.length; i++) {
