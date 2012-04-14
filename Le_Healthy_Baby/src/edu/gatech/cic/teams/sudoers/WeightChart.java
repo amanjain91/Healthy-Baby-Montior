@@ -15,8 +15,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
+import android.util.Log;
 
-public class HeightChart extends AbstractDemoChart {
+public class WeightChart extends AbstractDemoChart {
 	/**
 	 * Executes the chart demo.
 	 * 
@@ -32,16 +33,16 @@ public class HeightChart extends AbstractDemoChart {
 		List<double[]> values = new ArrayList<double[]>();
 		SQLiteDatabase db = new DatabaseOpenHelper(context)
 				.getReadableDatabase();
-		c = db.query("lengthchart",
+		c = db.query("weightchart",
 				new String[] { "Day", "P99", "P01", "P50" }, null, null, null,
 				null, null);
 		int factor = 5;
-		String[] titles = new String[] { "P99", "P0", "P50", "Height" };
+		String[] titles = new String[] { "P99", "P0", "P50", "Weight" };
 		double[] p99 = new double[(c.getCount() / factor) + 1];
 		double[] p0 = new double[(c.getCount() / factor) + 1];
 		double[] p50 = new double[(c.getCount() / factor) + 1];
 		double[] days = new double[(c.getCount() / factor) + 1];
-		double[] heightData = new double[c.getCount() / factor + 1];
+		double[] weightData = new double[c.getCount() / factor + 1];
 		c.moveToFirst();
 		int i = 0;
 		int temp;
@@ -58,17 +59,18 @@ public class HeightChart extends AbstractDemoChart {
 		c.close();
 
 		// initializing height to -5
-		for (i = 0; i < heightData.length; i++) {
-			heightData[i] = -5;
+		for (i = 0; i < weightData.length; i++) {
+			weightData[i] = -5;
 		}
 		c = db.query(aChild.getDataTableName(),
-				new String[] { "Day", "Height" }, null, null, null, null, null);
+				new String[] { "Day", "Weight" }, null, null, null, null, null);
 		c.moveToFirst();
 		i = 0;
 		// retreiving height data. approximating day to the nearest factor*x
 		do {
 			temp = (int) (c.getDouble(0) / factor);
-			heightData[temp] = c.getDouble(1);
+			weightData[temp] = c.getDouble(1);
+			Log.v("WeightChart", "Got a double: " + weightData[temp]);
 			i++;
 		} while (c.moveToNext());
 
@@ -78,7 +80,7 @@ public class HeightChart extends AbstractDemoChart {
 		values.add(p99);
 		values.add(p0);
 		values.add(p50);
-		values.add(heightData);
+		values.add(weightData);
 
 		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
 				Color.BLUE };
@@ -92,8 +94,8 @@ public class HeightChart extends AbstractDemoChart {
 					.setFillPoints(true);
 		}
 
-		setChartSettings(renderer, "Height Day Chart", "Days",
-				"Height (in cms)", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
+		setChartSettings(renderer, "Weight Day Chart", "Days",
+				"Weight (in lbs)", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
 		renderer.setShowGrid(true);
@@ -104,7 +106,6 @@ public class HeightChart extends AbstractDemoChart {
 		renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 		Intent intent = ChartFactory.getLineChartIntent(context,
 				buildDataset(titles, x, values), renderer, aChild.getName());
-
 		c.close();
 		db.close();
 		return intent;

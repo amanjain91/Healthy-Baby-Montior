@@ -46,12 +46,13 @@ public class ChildScreenT extends TabActivity {
 				.setContent(heightIntent);
 		tabHost.addTab(spec);
 
-		intent = new Intent().setClass(this, SongsActivity.class);
+		Intent weightIntent = new WeightChart().execute(
+				getApplicationContext(), mChild);
 		spec = tabHost
 				.newTabSpec("weight")
 				.setIndicator("Wgt",
 						res.getDrawable(R.drawable.ic_tab_albums_grey))
-				.setContent(intent);
+				.setContent(weightIntent);
 		tabHost.addTab(spec);
 
 		intent = new Intent().setClass(this, SongsActivity.class);
