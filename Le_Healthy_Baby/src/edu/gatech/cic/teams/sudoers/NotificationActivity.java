@@ -3,6 +3,7 @@ package edu.gatech.cic.teams.sudoers;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +15,7 @@ import android.widget.ListView;
 public class NotificationActivity extends ListActivity {
 	private int mChildId;
 	private String mChildName;
-	private ArrayList<MyNotification> m;
+	private ArrayList<Notification> m;
 	private NotificationsAdapter adapter;
 
 	public void onCreate(Bundle icicle) {
@@ -27,8 +28,8 @@ public class NotificationActivity extends ListActivity {
 				null, null, null);
 		c.moveToFirst();
 		String typeOfNotification, notification = null;
-		MyNotification aNotification = null;
-		m = new ArrayList<MyNotification>();
+		Notification aNotification = null;
+		m = new ArrayList<Notification>();
 		do {
 			if (c.getInt(3) != 2) {
 				typeOfNotification = c.getString(1);
@@ -66,9 +67,8 @@ public class NotificationActivity extends ListActivity {
 					Log.d("NotificationActivity", "What The Fuck? ");
 				}
 				if (x != 0) {
-					aNotification = new MyNotification(notification,
-							c.getInt(0));
-					aNotification.isCheck = (c.getInt(2) == 1);
+					aNotification = new Notification(notification, c.getInt(0));
+					aNotification.isCheck = (c.getInt(3) == 1);
 					m.add(aNotification);
 				}
 			}
@@ -96,16 +96,25 @@ public class NotificationActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		if (position > 0) {
-			MyNotification item = (MyNotification) getListAdapter().getItem(
+			Notification item = (Notification) getListAdapter().getItem(
 					position - 1);
+			SQLiteDatabase db = new DatabaseOpenHelper(this)
+					.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			int a = 0;
 			if (item.isCheck) {
 				m.remove(position - 1);
 				adapter = new NotificationsAdapter(this, m);
 				setListAdapter(adapter);
+				a = 2;
 			} else {
 				item.c.setChecked(true);
 				item.isCheck = true;
+				a = 1;
 			}
+			cv.put("vcheck", a);
+			db.update(Child.getNotificationTableName(mChildId), cv, "id=?",
+					new String[] { Integer.toString(item.id) });
 		}
 	}
 }

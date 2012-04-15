@@ -11,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class NotificationsAdapter extends ArrayAdapter<MyNotification> {
+public class NotificationsAdapter extends ArrayAdapter<Notification> {
 	private final Activity context;
-	private final List<MyNotification> notifications;
+	private final List<Notification> notifications;
 
-	public NotificationsAdapter(Activity context, List<MyNotification> names) {
+	public NotificationsAdapter(Activity context, List<Notification> names) {
 		super(context, R.layout.rowlayout, names);
 		this.context = context;
 		this.notifications = names;
