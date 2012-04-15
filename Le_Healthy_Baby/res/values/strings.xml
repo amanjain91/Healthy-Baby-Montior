@@ -23,5 +23,6 @@
     <string name="StringWeight">Weight: </string>
     <string name="StringAddChild">Add Child</string>
     <string name="StringAddData">Add Data</string>
+    <string name="Notification">Notificatons</string>
 
 </resources>
