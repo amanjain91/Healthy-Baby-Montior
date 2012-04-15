@@ -7,7 +7,7 @@ public class MyNotification {
 	public String notification;
 	public boolean isCheck;
 
-	public MyNotification(String n) {
+	public MyNotification(String n, int i) {
 		notification = n;
 		isCheck = false;
 	}

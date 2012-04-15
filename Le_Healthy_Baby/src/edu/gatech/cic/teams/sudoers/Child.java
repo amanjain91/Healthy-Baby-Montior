@@ -123,7 +123,7 @@ public class Child {
 				+ "  ( id INTEGER PRIMARY KEY, ntype Text, value INTEGER , vcheck INTEGER ); ";
 		for (int i = 0; i < reasons.length; i++) {
 			statements[i + 1] = "INSERT INTO " + tableName + " VALUES ( "
-					+ (i + 1) + " , '" + reasons[i] + "' , 0, 0 ) ;";
+					+ (i + 1) + " , '" + reasons[i] + "' , 3, 0 ) ;";
 		}
 		return statements;
 	}
