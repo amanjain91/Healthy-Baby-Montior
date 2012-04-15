@@ -37,7 +37,7 @@ public class Child {
 		mC.moveToFirst();
 		mName = mC.getString(0);
 		// FIXME Suren.
-		mBirthMonth = 3;
+		mBirthMonth = 1;
 		mBirthYear = 2012;
 		mC.close();
 		myDb.close();

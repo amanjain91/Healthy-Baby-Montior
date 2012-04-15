@@ -115,6 +115,7 @@ public class NotificationActivity extends ListActivity {
 			cv.put("vcheck", a);
 			db.update(Child.getNotificationTableName(mChildId), cv, "id=?",
 					new String[] { Integer.toString(item.id) });
+			db.close();
 		}
 	}
 }
