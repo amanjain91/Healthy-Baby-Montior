@@ -38,7 +38,7 @@ public class BMIChart extends AbstractDemoChart {
 		double[] p0 = new double[(c.getCount() / factor) + 1];
 		double[] p50 = new double[(c.getCount() / factor) + 1];
 		double[] days = new double[(c.getCount() / factor) + 1];
-		double[] heightData = new double[c.getCount() / factor + 1];
+		double[] bmiData = new double[c.getCount() / factor + 1];
 		c.moveToFirst();
 		int i = 0;
 		int temp;
@@ -55,17 +55,17 @@ public class BMIChart extends AbstractDemoChart {
 		c.close();
 
 		// initializing height to -5
-		for (i = 0; i < heightData.length; i++) {
-			heightData[i] = -5;
+		for (i = 0; i < bmiData.length; i++) {
+			bmiData[i] = -5;
 		}
 		c = db.query(aChild.getDataTableName(),
-				new String[] { "Day", "Height" }, null, null, null, null, null);
+				new String[] { "Day", "BMI" }, null, null, null, null, null);
 		c.moveToFirst();
 		i = 0;
 		// retreiving height data. approximating day to the nearest factor*x
 		do {
 			temp = (int) (c.getDouble(0) / factor);
-			heightData[temp] = c.getDouble(1);
+			bmiData[temp] = c.getDouble(1);
 			i++;
 		} while (c.moveToNext());
 
@@ -75,7 +75,7 @@ public class BMIChart extends AbstractDemoChart {
 		values.add(p99);
 		values.add(p0);
 		values.add(p50);
-		values.add(heightData);
+		values.add(bmiData);
 
 		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
 				Color.BLUE };
@@ -89,8 +89,8 @@ public class BMIChart extends AbstractDemoChart {
 					.setFillPoints(true);
 		}
 
-		setChartSettings(renderer, "Height Day Chart", "Days",
-				"Height (in cms)", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
+		setChartSettings(renderer, "BMI Day Chart", "Days",
+				"BMI", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
 		renderer.setShowGrid(true);

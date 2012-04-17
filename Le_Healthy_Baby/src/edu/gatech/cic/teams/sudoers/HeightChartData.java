@@ -66,7 +66,7 @@ public class HeightChartData {
 
 	}
 
-	public String updatedb(SQLiteDatabase db) throws FileNotFoundException {
+	public String updatedb(SQLiteDatabase db) {
 		SQL = "DROP TABLE IF EXISTS " + tablename + ";";
 		String query = "CREATE TABLE " + tablename
 				+ " ( Day INTEGER PRIMARY KEY, " + "L Integer" + "M Double"

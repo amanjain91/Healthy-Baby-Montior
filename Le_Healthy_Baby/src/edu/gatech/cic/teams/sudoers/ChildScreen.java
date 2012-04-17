@@ -1,7 +1,6 @@
 package edu.gatech.cic.teams.sudoers;
 
 import edu.gatech.cic.teams.sudoers.R;
-import edu.gatech.cic.teams.sudoers.SongsActivity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,7 +8,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 @SuppressWarnings("deprecation")
-public class ChildScreenT extends TabActivity {
+public class ChildScreen extends TabActivity {
 	private Child mChild;
 	private String mChildName;
 
@@ -55,7 +54,7 @@ public class ChildScreenT extends TabActivity {
 				.setContent(weightIntent);
 		tabHost.addTab(spec);
 
-		intent = new Intent().setClass(this, SongsActivity.class);
+		intent = new BMIChart().execute(getApplicationContext(), mChild);
 		spec = tabHost
 				.newTabSpec("bmi")
 				.setIndicator("BMI",

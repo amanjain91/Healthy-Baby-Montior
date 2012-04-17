@@ -119,7 +119,33 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			values.put("P999", data.weightdata[i][18]);
 			db.insert("weightchart", null, values);
 		}
-
+		db.execSQL("DROP TABLE IF EXISTS bmichart;");
+		db.execSQL("CREATE TABLE bmichart (Day INTEGER PRIMARY KEY, L Integer, M Double, S Double, P01 Double, P1 Double, P3 Double, P5 Double, P10 Double, P15 Double, P25 Double, P50 Double, P75 Double, P85 Double, P90 Double, P95 Double, P97 Double, P99 Double, P999 Double);");
+		BMIdata.initBMI();
+		double[][] bmidata = BMIdata.BMIdata;
+		for (int i = 0; i < bmidata.length; i++) {
+			values = new ContentValues();
+			values.put("Day", i);
+			values.put("L", bmidata[i][1]);
+			values.put("M", bmidata[i][2]);
+			values.put("S", bmidata[i][3]);
+			values.put("P01", bmidata[i][4]);
+			values.put("P1", bmidata[i][5]);
+			values.put("P3", bmidata[i][6]);
+			values.put("P5", bmidata[i][7]);
+			values.put("P10", bmidata[i][8]);
+			values.put("P15", bmidata[i][9]);
+			values.put("P25", bmidata[i][10]);
+			values.put("P50", bmidata[i][11]);
+			values.put("P75", bmidata[i][12]);
+			values.put("P85", bmidata[i][13]);
+			values.put("P90", bmidata[i][14]);
+			values.put("P95", bmidata[i][15]);
+			values.put("P97", bmidata[i][16]);
+			values.put("P99", bmidata[i][17]);
+			values.put("P999", bmidata[i][18]);
+			db.insert("bmichart", null, values);
+		}
 	}
 
 	/**
@@ -140,6 +166,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		for (int x = 1; x <= 3; x++) {
 			String[] dummyStatements = Child.initializeDummyData(x);
 			for (int i = 0; i < dummyStatements.length; i++) {
+				Log.v("DBOpenHelper", dummyStatements[i]);
 				db.execSQL(dummyStatements[i]);
 			}
 		}
