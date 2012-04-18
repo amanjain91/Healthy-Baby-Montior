@@ -85,7 +85,7 @@ public class Child {
 		answer[x++] = "DROP TABLE IF EXISTS " + mTableName + ";";
 		answer[x++] = "CREATE TABLE "
 				+ mTableName
-				+ " (Day INTEGER PRIMARY KEY, Height Double, Weight Double, BMI Double);";
+				+ " (day INTEGER PRIMARY KEY, height Double, weight Double, bmi Double);";
 
 		for (int i = 0; i < 10; i++) {
 			answer[x++] = "INSERT INTO " + mTableName + " VALUES (" + (i * 3)
@@ -114,17 +114,26 @@ public class Child {
 		return " notifications_of_" + mChildId + " ";
 	}
 
+	public static String getDataTableName(int aChildId) {
+		return "data_" + aChildId;
+	}
+
 	private static String[] initializeNotificationCenter(int mChildId) {
 		String[] reasons = { "Date", "Height", "Weight", "Vaccine" };
-		String[] statements = new String[reasons.length + 1];
+		String[] statements = new String[reasons.length + 2];
 		String tableName = Child.getNotificationTableName(mChildId);
-		statements[0] = "CREATE TABLE IF NOT EXISTS"
+		statements[0] = "DROP TABLE IF EXISTS" + tableName;
+		statements[1] = "CREATE TABLE "
 				+ tableName
 				+ "  ( id INTEGER PRIMARY KEY, ntype Text, value INTEGER , vcheck INTEGER ); ";
 		for (int i = 0; i < reasons.length; i++) {
-			statements[i + 1] = "INSERT INTO " + tableName + " VALUES ( "
+			statements[i + 2] = "INSERT INTO " + tableName + " VALUES ( "
 					+ (i + 1) + " , '" + reasons[i] + "' , 3, 0 ) ;";
 		}
 		return statements;
+	}
+
+	public static String getChildrenTableName() {
+		return "children";
 	}
 }

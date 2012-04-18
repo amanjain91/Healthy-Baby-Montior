@@ -50,7 +50,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	/** the query to create the table initially. */
 	private static final String CREATE_CHILDREN_TABLE = "CREATE TABLE "
 			+ CHILDREN_TABLE_NAME + " ( " + CHILD_ID + " INTEGER PRIMARY KEY, "
-			+ CHILD_NAME + " TEXT " + " );";
+			+ CHILD_NAME + " TEXT "
+			+ ", day INTEGER, month INTEGER, year INTEGER );";
 
 	/**
 	 * Constructor method. Gets the database object for the current context.
@@ -75,12 +76,19 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_CHILDREN_TABLE);
 
 		values.put(CHILD_NAME, "Suren Nihalani");
+		values.put("day", 20);
+		values.put("month", 6);
+		values.put("year", 2011);
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
-		values = new ContentValues();
-		values.put(CHILD_NAME, "Aman");
+		values.put(CHILD_NAME, "Aman Jain");
+		values.put("day", 15);
+		values.put("month", 6);
+		values.put("year", 2011);
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
-		values = new ContentValues();
-		values.put(CHILD_NAME, "Gurden");
+		values.put(CHILD_NAME, "Gurden Batra");
+		values.put("day", 20);
+		values.put("month", 9);
+		values.put("year", 2011);
 		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		HealthData data = new HealthData();
 		data.initLengthData();
@@ -95,7 +103,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			}
 		}
 		db.execSQL("DROP TABLE IF EXISTS weightchart;");
-		db.execSQL("CREATE TABLE weightchart (Day INTEGER PRIMARY KEY, L Integer, M Double, S Double, P01 Double, P1 Double, P3 Double, P5 Double, P10 Double, P15 Double, P25 Double, P50 Double, P75 Double, P85 Double, P90 Double, P95 Double, P97 Double, P99 Double, P999 Double);");
+		db.execSQL("CREATE TABLE weightchart (day INTEGER PRIMARY KEY, L Integer, M Double, S Double, P01 Double, P1 Double, P3 Double, P5 Double, P10 Double, P15 Double, P25 Double, P50 Double, P75 Double, P85 Double, P90 Double, P95 Double, P97 Double, P99 Double, P999 Double);");
 		for (int i = 0; i < data.weightdata.length; i++) {
 			values = new ContentValues();
 			values.put("Day", i);

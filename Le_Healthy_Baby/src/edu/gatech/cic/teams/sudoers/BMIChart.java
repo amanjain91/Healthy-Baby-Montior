@@ -30,7 +30,7 @@ public class BMIChart extends AbstractDemoChart {
 		List<double[]> values = new ArrayList<double[]>();
 		SQLiteDatabase db = new DatabaseOpenHelper(context)
 				.getReadableDatabase();
-		c = db.query("bmichart", new String[] { "Day", "P99", "P01", "P50" },
+		c = db.query("bmichart", new String[] { "day", "P99", "P01", "P50" },
 				null, null, null, null, null);
 		int factor = 5;
 		String[] titles = new String[] { "P99", "P0", "P50", "BMI" };
@@ -58,8 +58,8 @@ public class BMIChart extends AbstractDemoChart {
 		for (i = 0; i < bmiData.length; i++) {
 			bmiData[i] = -5;
 		}
-		c = db.query(aChild.getDataTableName(),
-				new String[] { "Day", "BMI" }, null, null, null, null, null);
+		c = db.query(aChild.getDataTableName(), new String[] { "day", "bmi" },
+				null, null, null, null, null);
 		c.moveToFirst();
 		i = 0;
 		// retreiving height data. approximating day to the nearest factor*x
@@ -89,8 +89,8 @@ public class BMIChart extends AbstractDemoChart {
 					.setFillPoints(true);
 		}
 
-		setChartSettings(renderer, "BMI Day Chart", "Days",
-				"BMI", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
+		setChartSettings(renderer, "BMI Day Chart", "Days", "BMI", 0, 1000, 0,
+				125, Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
 		renderer.setShowGrid(true);

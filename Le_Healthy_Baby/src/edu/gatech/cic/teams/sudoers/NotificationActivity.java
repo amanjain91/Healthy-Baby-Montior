@@ -118,4 +118,5 @@ public class NotificationActivity extends ListActivity {
 			db.close();
 		}
 	}
+
 }

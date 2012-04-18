@@ -31,7 +31,7 @@ public class HeightChart extends AbstractDemoChart {
 		SQLiteDatabase db = new DatabaseOpenHelper(context)
 				.getReadableDatabase();
 		c = db.query("lengthchart",
-				new String[] { "Day", "P99", "P01", "P50" }, null, null, null,
+				new String[] { "day", "P99", "P01", "P50" }, null, null, null,
 				null, null);
 		int factor = 5;
 		String[] titles = new String[] { "P99", "P0", "P50", "Height" };

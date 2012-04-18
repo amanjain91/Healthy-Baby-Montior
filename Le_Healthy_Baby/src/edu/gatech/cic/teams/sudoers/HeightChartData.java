@@ -65,16 +65,4 @@ public class HeightChartData {
 		SQL = SQL + query;
 
 	}
-
-	public String updatedb(SQLiteDatabase db) {
-		SQL = "DROP TABLE IF EXISTS " + tablename + ";";
-		String query = "CREATE TABLE " + tablename
-				+ " ( Day INTEGER PRIMARY KEY, " + "L Integer" + "M Double"
-				+ "S Double" + "P01 Double" + "P1 Double" + "P3 Double"
-				+ "P5 Double" + "P10 Double" + "P15 Double" + "P25 Double"
-				+ "P50 Double" + "P75 Double" + "P85 Double" + "P90 Double"
-				+ "P95 Double" + "P97 Double" + "P99 Double" + "P999 Double );";
-		SQL = SQL + query;
-		return SQL;
-	}
 }

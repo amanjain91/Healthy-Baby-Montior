@@ -28,9 +28,9 @@ public class VaccinationData {
 		String tableName = "vaccinations_of_" + Integer.toString(id);
 		returnValue[0] = "DROP TABLE IF EXISTS " + tableName;
 		returnValue[1] = "CREATE TABLE " + tableName
-				+ " (  VACCINE_ID INTEGER PRIMARY KEY, "
-				+ "VACCINE_NAME TEXT, " + "START_DATE INT," + "END_DATE INT,"
-				+ "VACC_GIVEN INT" + " );";
+				+ " (  vaccine_id INTEGER PRIMARY KEY, "
+				+ "vaccine_name TEXT, " + "start_date INT," + "end_date INT,"
+				+ "vacc_given INT" + " );";
 		int i = 2;
 		for (Vaccination v : allVaccinations) {
 			returnValue[i++] = "INSERT INTO " + tableName + " VALUES ( "
