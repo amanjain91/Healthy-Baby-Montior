@@ -35,7 +35,7 @@ public class WeightChart extends AbstractDemoChart {
 				new String[] { "Day", "P99", "P01", "P50" }, null, null, null,
 				null, null);
 		int factor = 5;
-		String[] titles = new String[] { "P99", "P0", "P50", "Weight" };
+		String[] titles;
 		double[] p99 = new double[(c.getCount() / factor) + 1];
 		double[] p0 = new double[(c.getCount() / factor) + 1];
 		double[] p50 = new double[(c.getCount() / factor) + 1];
@@ -62,28 +62,35 @@ public class WeightChart extends AbstractDemoChart {
 		}
 		c = db.query(aChild.getDataTableName(),
 				new String[] { "Day", "Weight" }, null, null, null, null, null);
-		c.moveToFirst();
-		i = 0;
-		// retreiving height data. approximating day to the nearest factor*x
-		do {
-			temp = (int) (c.getDouble(0) / factor);
-			weightData[temp] = c.getDouble(1);
-			Log.v("WeightChart", "Got a double: " + weightData[temp]);
-			i++;
-		} while (c.moveToNext());
 
+		i = 0;
+		int[] colors;
+		PointStyle[] styles;
+		if (c.moveToFirst()) {
+			titles = new String[] { "P99", "P0", "P50", "Weight" };
+			styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT,
+					PointStyle.POINT, PointStyle.CIRCLE };
+			colors = new int[] { Color.CYAN, Color.GREEN, Color.RED, Color.BLUE };
+			values.add(weightData);
+			do {
+				temp = (int) (c.getDouble(0) / factor);
+				weightData[temp] = c.getDouble(1);
+				Log.v("WeightChart", "Got a double: " + weightData[temp]);
+				i++;
+			} while (c.moveToNext());
+		} else {
+			titles = new String[] { "P99", "P0", "P50" };
+			styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT,
+					PointStyle.POINT };
+			colors = new int[] { Color.CYAN, Color.GREEN, Color.RED, };
+		}
 		for (int v = 0; v < titles.length; v++) {
 			x.add(days);
 		}
 		values.add(p99);
 		values.add(p0);
 		values.add(p50);
-		values.add(weightData);
 
-		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
-				Color.BLUE };
-		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
-				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 
 		int length = renderer.getSeriesRendererCount();

@@ -33,7 +33,7 @@ public class BMIChart extends AbstractDemoChart {
 		c = db.query("bmichart", new String[] { "day", "P99", "P01", "P50" },
 				null, null, null, null, null);
 		int factor = 5;
-		String[] titles = new String[] { "P99", "P0", "P50", "BMI" };
+
 		double[] p99 = new double[(c.getCount() / factor) + 1];
 		double[] p0 = new double[(c.getCount() / factor) + 1];
 		double[] p50 = new double[(c.getCount() / factor) + 1];
@@ -60,27 +60,33 @@ public class BMIChart extends AbstractDemoChart {
 		}
 		c = db.query(aChild.getDataTableName(), new String[] { "day", "bmi" },
 				null, null, null, null, null);
-		c.moveToFirst();
-		i = 0;
-		// retreiving height data. approximating day to the nearest factor*x
-		do {
-			temp = (int) (c.getDouble(0) / factor);
-			bmiData[temp] = c.getDouble(1);
-			i++;
-		} while (c.moveToNext());
 
+		i = 0;
+		String[] titles = new String[] { "P99", "P0", "P50", "BMI" };
+		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
+				Color.BLUE };
+		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
+				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
+		if (c.moveToFirst()) {
+			do {
+				temp = (int) (c.getDouble(0) / factor);
+				bmiData[temp] = c.getDouble(1);
+				i++;
+			} while (c.moveToNext());
+			values.add(bmiData);
+		} else {
+			titles = new String[] { "P99", "P0", "P50" };
+			colors = new int[] { Color.CYAN, Color.GREEN, Color.RED };
+			styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT,
+					PointStyle.POINT };
+		}
 		for (int v = 0; v < titles.length; v++) {
 			x.add(days);
 		}
 		values.add(p99);
 		values.add(p0);
 		values.add(p50);
-		values.add(bmiData);
 
-		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
-				Color.BLUE };
-		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
-				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 
 		int length = renderer.getSeriesRendererCount();

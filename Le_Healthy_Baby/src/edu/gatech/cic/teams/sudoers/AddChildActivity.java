@@ -56,8 +56,10 @@ public class AddChildActivity extends Activity {
 						DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, mValues);
 				String[] statements = Child.initializeDummyData(mID);
 				for (String s : statements) {
-					Log.v(tag, s);
-					db.execSQL(s);
+					if (s != null) {
+						Log.v(tag, s);
+						db.execSQL(s);
+					}
 				}
 			} finally {
 				db.close();

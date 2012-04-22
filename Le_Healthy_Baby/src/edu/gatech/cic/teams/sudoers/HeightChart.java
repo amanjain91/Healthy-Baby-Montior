@@ -30,16 +30,21 @@ public class HeightChart extends AbstractDemoChart {
 		List<double[]> values = new ArrayList<double[]>();
 		SQLiteDatabase db = new DatabaseOpenHelper(context)
 				.getReadableDatabase();
+		int[] colors;
+		PointStyle[] styles;
 		c = db.query("lengthchart",
 				new String[] { "day", "P99", "P01", "P50" }, null, null, null,
 				null, null);
 		int factor = 5;
-		String[] titles = new String[] { "P99", "P0", "P50", "Height" };
+		String[] titles;
+
 		double[] p99 = new double[(c.getCount() / factor) + 1];
 		double[] p0 = new double[(c.getCount() / factor) + 1];
 		double[] p50 = new double[(c.getCount() / factor) + 1];
 		double[] days = new double[(c.getCount() / factor) + 1];
 		double[] heightData = new double[c.getCount() / factor + 1];
+		titles = new String[] { "P99", "P0", "P50" };
+
 		c.moveToFirst();
 		int i = 0;
 		int temp;
@@ -59,25 +64,31 @@ public class HeightChart extends AbstractDemoChart {
 		}
 		c = db.query(aChild.getDataTableName(),
 				new String[] { "Day", "Height" }, null, null, null, null, null);
-		c.moveToFirst();
-		i = 0;
-		do {
-			temp = (int) (c.getDouble(0) / factor);
-			heightData[temp] = c.getDouble(1);
-			i++;
-		} while (c.moveToNext());
 
-		for (int v = 0; v < titles.length; v++) {
-			x.add(days);
-		}
+		i = 0;
 		values.add(p99);
 		values.add(p0);
 		values.add(p50);
-		values.add(heightData);
-		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
-				Color.BLUE };
-		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
-				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
+		if (c.moveToFirst()) {
+			colors = new int[] { Color.CYAN, Color.GREEN, Color.RED, Color.BLUE };
+			styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT,
+					PointStyle.POINT, PointStyle.CIRCLE };
+			titles = new String[] { "P99", "P0", "P50", "Height" };
+			do {
+				temp = (int) (c.getDouble(0) / factor);
+				heightData[temp] = c.getDouble(1);
+				i++;
+			} while (c.moveToNext());
+			values.add(heightData);
+		} else {
+			colors = new int[] { Color.CYAN, Color.GREEN, Color.RED };
+			styles = new PointStyle[] { PointStyle.POINT, PointStyle.POINT,
+					PointStyle.POINT };
+		}
+		for (int v = 0; v < titles.length; v++) {
+			x.add(days);
+		}
+
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 		int length = renderer.getSeriesRendererCount();
 		for (i = 0; i < length; i++) {

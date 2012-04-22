@@ -36,10 +36,8 @@
         <activity android:name="org.achartengine.chartdemo.demo.chart.PieChartBuilder" />
         <activity android:name="org.achartengine.GraphicalActivity" />
         <activity android:name=".GeneratedChartDemo" />
-        <activity android:name=".NotificationActivity" >
-        </activity>
-        <activity android:name=".AddHeightWeightDataActivity" >
-        </activity>
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".AddHeightWeightDataActivity" />
     </application>
 
 </manifest>
