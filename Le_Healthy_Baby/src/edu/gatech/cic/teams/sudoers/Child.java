@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * A information holder object for a Child.<br/>
- * TODO: Add support for more fields from the AddChildActivity.
  * 
  * @author Suren_Nihalani
  * @version 1.0
