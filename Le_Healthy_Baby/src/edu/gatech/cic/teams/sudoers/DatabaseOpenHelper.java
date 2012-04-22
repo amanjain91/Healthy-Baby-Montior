@@ -74,33 +74,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		db.execSQL("DROP TABLE IF EXISTS children;");
 		db.execSQL(CREATE_CHILDREN_TABLE);
-
-		values.put(CHILD_NAME, "Suren Nihalani");
-		values.put("day", 20);
-		values.put("month", 6);
-		values.put("year", 2011);
-		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
-		values.put(CHILD_NAME, "Aman Jain");
-		values.put("day", 15);
-		values.put("month", 6);
-		values.put("year", 2011);
-		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
-		values.put(CHILD_NAME, "Gurden Batra");
-		values.put("day", 20);
-		values.put("month", 9);
-		values.put("year", 2011);
-		db.insert(CHILDREN_TABLE_NAME, CHILD_NAME, values);
 		HealthData data = new HealthData();
 		data.initLengthData();
 		for (int i = 0; i < data.lengthdata.length; i++) {
 			db.execSQL(data.lengthdata[i]);
-		}
-		String[] vaccinationSqlStatements;
-		for (int x = 1; x <= 3; x++) {
-			vaccinationSqlStatements = VaccinationData.getSQLTemplate(x);
-			for (String i : vaccinationSqlStatements) {
-				db.execSQL(i);
-			}
 		}
 		db.execSQL("DROP TABLE IF EXISTS weightchart;");
 		db.execSQL("CREATE TABLE weightchart (day INTEGER PRIMARY KEY, L Integer, M Double, S Double, P01 Double, P1 Double, P3 Double, P5 Double, P10 Double, P15 Double, P25 Double, P50 Double, P75 Double, P85 Double, P90 Double, P95 Double, P97 Double, P99 Double, P999 Double);");
@@ -171,13 +148,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.v("DatabaseOpenHelper", "Database Upgrade called!");
 		db.execSQL("DROP TABLE IF EXISTS children;");
-		for (int x = 1; x <= 3; x++) {
-			String[] dummyStatements = Child.initializeDummyData(x);
-			for (int i = 0; i < dummyStatements.length; i++) {
-				Log.v("DBOpenHelper", dummyStatements[i]);
-				db.execSQL(dummyStatements[i]);
-			}
-		}
 		onCreate(db);
 	}
 

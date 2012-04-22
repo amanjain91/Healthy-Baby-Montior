@@ -54,8 +54,6 @@ public class HeightChart extends AbstractDemoChart {
 			i++;
 		} while (c.moveToNext());
 		c.close();
-
-		// initializing height to -5
 		for (i = 0; i < heightData.length; i++) {
 			heightData[i] = -5;
 		}
@@ -63,7 +61,6 @@ public class HeightChart extends AbstractDemoChart {
 				new String[] { "Day", "Height" }, null, null, null, null, null);
 		c.moveToFirst();
 		i = 0;
-		// retreiving height data. approximating day to the nearest factor*x
 		do {
 			temp = (int) (c.getDouble(0) / factor);
 			heightData[temp] = c.getDouble(1);
@@ -77,19 +74,16 @@ public class HeightChart extends AbstractDemoChart {
 		values.add(p0);
 		values.add(p50);
 		values.add(heightData);
-
 		int[] colors = new int[] { Color.CYAN, Color.GREEN, Color.RED,
 				Color.BLUE };
 		PointStyle[] styles = new PointStyle[] { PointStyle.POINT,
 				PointStyle.POINT, PointStyle.POINT, PointStyle.CIRCLE };
 		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
-
 		int length = renderer.getSeriesRendererCount();
 		for (i = 0; i < length; i++) {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i))
 					.setFillPoints(true);
 		}
-
 		setChartSettings(renderer, "Height Day Chart", "Days",
 				"Height (in cms)", 0, 1000, 0, 125, Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
@@ -102,7 +96,6 @@ public class HeightChart extends AbstractDemoChart {
 		renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 		Intent intent = ChartFactory.getLineChartIntent(context,
 				buildDataset(titles, x, values), renderer, aChild.getName());
-
 		c.close();
 		db.close();
 		return intent;

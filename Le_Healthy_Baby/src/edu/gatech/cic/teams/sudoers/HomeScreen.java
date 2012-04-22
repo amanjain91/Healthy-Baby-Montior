@@ -126,7 +126,7 @@ public class HomeScreen extends ListActivity implements OnClickListener {
 	 * @see android.view.View$OnClickListener#onClick(View)
 	 */
 	public void onClick(View v) {
-		startActivity(new Intent(HomeScreen.this, NewChildActivity.class));
+		startActivity(new Intent(HomeScreen.this, AddChildActivity.class));
 	}
 
 	/**

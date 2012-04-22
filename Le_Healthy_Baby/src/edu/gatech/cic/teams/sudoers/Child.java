@@ -36,9 +36,6 @@ public class Child {
 				new String[] { Integer.toString(childId) }, null, null, null);
 		mC.moveToFirst();
 		mName = mC.getString(0);
-		// FIXME Suren.
-		mBirthMonth = 1;
-		mBirthYear = 2012;
 		mC.close();
 		myDb.close();
 	}
@@ -78,21 +75,20 @@ public class Child {
 	 * @param id
 	 */
 	public static String[] initializeDummyData(int id) {
+		String[] vaccinationStatements = VaccinationData.getSQLTemplate(id);
 		String[] notificationStatements = initializeNotificationCenter(id);
 		String mTableName = "data_" + id;
-		String[] answer = new String[12 + notificationStatements.length];
+		String[] answer = new String[10 + notificationStatements.length
+				+ vaccinationStatements.length];
 		int x = 0;
 		answer[x++] = "DROP TABLE IF EXISTS " + mTableName + ";";
 		answer[x++] = "CREATE TABLE "
 				+ mTableName
 				+ " (day INTEGER PRIMARY KEY, height Double, weight Double, bmi Double);";
-
-		for (int i = 0; i < 10; i++) {
-			answer[x++] = "INSERT INTO " + mTableName + " VALUES (" + (i * 3)
-					+ " , " + (45 + Math.pow(-1, i) * i * 3) + " , 1, 1"
-					+ "); ";
-		}
 		for (String s : notificationStatements) {
+			answer[x++] = s;
+		}
+		for (String s : vaccinationStatements) {
 			answer[x++] = s;
 		}
 		return answer;

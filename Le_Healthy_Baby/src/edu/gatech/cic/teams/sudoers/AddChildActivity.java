@@ -16,8 +16,9 @@ import android.widget.EditText;
  * @author Suren_Nihalani
  * @version 1.0
  */
-public class NewChildActivity extends Activity {
+public class AddChildActivity extends Activity {
 
+	private static final String tag = "AddChildActivity";
 	/** The KeyValueMap used at the time of submission. */
 	private ContentValues mValues;
 
@@ -42,26 +43,25 @@ public class NewChildActivity extends Activity {
 	 */
 	public void onClick(View v) {
 		SQLiteDatabase db = null;
+		String temp = ((EditText) findViewById(R.id.edit_name)).getText()
+				.toString();
 		Log.v(this.getClass().getSimpleName(), "Submit button Clicked!");
-		try {
-			db = new DatabaseOpenHelper(getApplicationContext())
-					.getWritableDatabase();
-			mValues = new ContentValues();
-			mValues.put(DatabaseOpenHelper.CHILD_NAME,
-					((EditText) findViewById(R.id.edit_name)).getText()
-							.toString());
-			// creating table to store data for the new child. table name:
-			// data_<row_id>
-			int mID = (int) db.insert(DatabaseOpenHelper.CHILDREN_TABLE_NAME,
-					null, mValues);
-			// TODO put the following code in Child.initializeDummyData(id)
-			// so that we can connect things in Database open helper.
-			String[] statements = Child.initializeDummyData(mID);
-			for (String s : statements) {
-				db.execSQL(s);
+		if (!temp.trim().equalsIgnoreCase("")) {
+			try {
+				db = new DatabaseOpenHelper(getApplicationContext())
+						.getWritableDatabase();
+				mValues = new ContentValues();
+				mValues.put(DatabaseOpenHelper.CHILD_NAME, temp);
+				int mID = (int) db.insert(
+						DatabaseOpenHelper.CHILDREN_TABLE_NAME, null, mValues);
+				String[] statements = Child.initializeDummyData(mID);
+				for (String s : statements) {
+					Log.v(tag, s);
+					db.execSQL(s);
+				}
+			} finally {
+				db.close();
 			}
-		} finally {
-			db.close();
 		}
 		finish();
 	}

@@ -1,9 +1,7 @@
 package edu.gatech.cic.teams.sudoers;
 
-import edu.gatech.cic.teams.sudoers.R;
 import android.app.TabActivity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
 
@@ -20,7 +18,6 @@ public class ChildScreen extends TabActivity {
 				getApplicationContext());
 		mChildName = i.getStringExtra("childName");
 		setTitle(i.getExtras().getCharSequence("childName"));
-		Resources res = getResources();
 		TabHost tabHost = getTabHost();
 		TabHost.TabSpec spec;
 		Intent intent;
@@ -29,47 +26,31 @@ public class ChildScreen extends TabActivity {
 				NotificationActivity.class);
 		notificationsIntent.putExtra("childId", mChild.getChildId());
 		notificationsIntent.putExtra("childName", mChildName);
-		spec = tabHost
-				.newTabSpec("notifications")
-				.setIndicator("N.",
-						res.getDrawable(R.drawable.ic_tab_artists_grey))
+		spec = tabHost.newTabSpec("notifications").setIndicator("N.")
 				.setContent(notificationsIntent);
 		tabHost.addTab(spec);
 
 		Intent heightIntent = new HeightChart().execute(
 				getApplicationContext(), mChild);
-		spec = tabHost
-				.newTabSpec("height")
-				.setIndicator("Hgt",
-						res.getDrawable(R.drawable.ic_tab_albums_grey))
+		spec = tabHost.newTabSpec("height").setIndicator("Hgt")
 				.setContent(heightIntent);
 		tabHost.addTab(spec);
 
 		Intent weightIntent = new WeightChart().execute(
 				getApplicationContext(), mChild);
-		spec = tabHost
-				.newTabSpec("weight")
-				.setIndicator("Wgt",
-						res.getDrawable(R.drawable.ic_tab_albums_grey))
+		spec = tabHost.newTabSpec("weight").setIndicator("Wgt")
 				.setContent(weightIntent);
 		tabHost.addTab(spec);
 
 		intent = new BMIChart().execute(getApplicationContext(), mChild);
-		spec = tabHost
-				.newTabSpec("bmi")
-				.setIndicator("BMI",
-						res.getDrawable(R.drawable.ic_tab_albums_grey))
-				.setContent(intent);
+		spec = tabHost.newTabSpec("bmi").setIndicator("BMI").setContent(intent);
 		tabHost.addTab(spec);
 
 		Intent vaccinationsIntent = new Intent(this, VaccinationScreen.class);
 		vaccinationsIntent.putExtra("mm", mChild.getBirthMonth());
 		vaccinationsIntent.putExtra("yy", mChild.getBirthYear());
 		vaccinationsIntent.putExtra("childId", mChild.getChildId());
-		spec = tabHost
-				.newTabSpec("vaccinations")
-				.setIndicator("V",
-						res.getDrawable(R.drawable.ic_tab_albums_grey))
+		spec = tabHost.newTabSpec("vaccinations").setIndicator("V")
 				.setContent(vaccinationsIntent);
 		tabHost.addTab(spec);
 	}

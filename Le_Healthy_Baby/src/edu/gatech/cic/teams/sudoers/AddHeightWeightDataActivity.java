@@ -21,26 +21,32 @@ public class AddHeightWeightDataActivity extends Activity {
 	}
 
 	public void onClick(View v) {
-		SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext())
-				.getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		Cursor c = db.query(
-				"children",
-				new String[] { "day", "month", "year" },
-				"child_id=?",
-				new String[] { Integer.toString(getIntent().getExtras().getInt(
-						"childId")) }, null, null, null);
-		c.moveToFirst();
-		int w = Integer.parseInt(mWeight.getText().toString());
-		int h = Integer.parseInt(mHeight.getText().toString());
-		cv.put("weight", w);
-		cv.put("height", h);
-		cv.put("bmi", (w * 703.0) / (h ^ 2));
-		cv.put("day", getDays(c.getInt(0), c.getInt(1), c.getInt(2)));
-		db.insertWithOnConflict(Child.getDataTableName(getIntent().getExtras()
-				.getInt("childId")), null, cv, SQLiteDatabase.CONFLICT_REPLACE);
-		c.close();
-		db.close();
+		String wt, ht;
+		wt = mWeight.getText().toString();
+		ht = mHeight.getText().toString();
+		if ((!wt.trim().equals("")) || (!ht.trim().equals(""))) {
+			int w = Integer.parseInt(wt);
+			int h = Integer.parseInt(ht);
+			SQLiteDatabase db = new DatabaseOpenHelper(getApplicationContext())
+					.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			Cursor c = db.query("children", new String[] { "day", "month",
+					"year" }, "child_id=?", new String[] { Integer
+					.toString(getIntent().getExtras().getInt("childId")) },
+					null, null, null);
+			c.moveToFirst();
+
+			cv.put("weight", w);
+			cv.put("height", h);
+			cv.put("bmi", (w * 703.0) / (h ^ 2));
+			cv.put("day", getDays(c.getInt(0), c.getInt(1), c.getInt(2)));
+			db.insertWithOnConflict(
+					Child.getDataTableName(getIntent().getExtras().getInt(
+							"childId")), null, cv,
+					SQLiteDatabase.CONFLICT_REPLACE);
+			c.close();
+			db.close();
+		}
 		finish();
 	}
 
